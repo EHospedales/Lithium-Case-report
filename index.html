@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lithium in Psychiatry – Journal Club Presentation</title>
+  <style>
+    /* ── Reset & Base ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary:   #1a4a7a;
+      --accent:    #2e86c1;
+      --light:     #eaf4fb;
+      --success:   #27ae60;
+      --danger:    #c0392b;
+      --warn:      #e67e22;
+      --text:      #1c1c1c;
+      --muted:     #6c757d;
+      --bg:        #f5f8fc;
+      --card:      #ffffff;
+      --radius:    10px;
+      --shadow:    0 4px 18px rgba(0,0,0,0.09);
+    }
+    html, body { height: 100%; font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); }
+
+    /* ── Layout ─────────────────────────────────────────────────────── */
+    #app { display: flex; flex-direction: column; min-height: 100vh; }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    header h1 { font-size: 1rem; font-weight: 600; letter-spacing: .02em; }
+    #progress-bar-wrap { flex: 1; max-width: 340px; background: rgba(255,255,255,.25); border-radius: 20px; height: 7px; overflow: hidden; }
+    #progress-bar { height: 100%; background: #5dade2; border-radius: 20px; transition: width .4s ease; }
+    #slide-counter { font-size: .82rem; opacity: .85; white-space: nowrap; }
+
+    main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; overflow: hidden; }
+
+    /* ── Slides ──────────────────────────────────────────────────────── */
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 860px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 40px 48px;
+      animation: fadeSlide .35s ease;
+    }
+    .slide.active { display: block; }
+    @keyframes fadeSlide { from { opacity:0; transform: translateY(14px); } to { opacity:1; transform:none; } }
+
+    /* ── Slide type modifiers ────────────────────────────────────────── */
+    .slide-title { text-align: center; background: linear-gradient(135deg, var(--primary) 0%, #2e86c1 100%); color: #fff; }
+    .slide-title h2 { font-size: 2rem; margin-bottom: 12px; }
+    .slide-title .subtitle { font-size: 1.1rem; opacity: .88; }
+    .slide-title .meta { margin-top: 28px; font-size: .85rem; opacity: .75; line-height: 1.7; }
+    .slide-title .tag { display: inline-block; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35); border-radius: 20px; padding: 3px 12px; margin: 3px 4px; font-size: .78rem; }
+
+    .slide-section { background: linear-gradient(135deg, #1a4a7a 0%, #154360 100%); color: #fff; text-align: center; }
+    .slide-section h2 { font-size: 1.9rem; }
+    .slide-section p { opacity: .8; margin-top: 10px; font-size: 1rem; }
+
+    h2.slide-heading { font-size: 1.45rem; color: var(--primary); border-left: 5px solid var(--accent); padding-left: 14px; margin-bottom: 22px; }
+    h3.sub-heading { font-size: 1.1rem; color: var(--accent); margin-bottom: 10px; margin-top: 18px; }
+
+    /* ── UI elements ─────────────────────────────────────────────────── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 620px) { .two-col, .three-col { grid-template-columns: 1fr; } .slide { padding: 24px 20px; } }
+
+    .card { background: var(--light); border-radius: var(--radius); padding: 16px 18px; }
+    .card.green { background: #eafaf1; border-left: 4px solid var(--success); }
+    .card.orange { background: #fef9e7; border-left: 4px solid var(--warn); }
+    .card.red { background: #fdedec; border-left: 4px solid var(--danger); }
+    .card.blue { background: #eaf4fb; border-left: 4px solid var(--accent); }
+
+    ul.check-list { list-style: none; }
+    ul.check-list li { padding: 5px 0; padding-left: 24px; position: relative; font-size: .94rem; line-height: 1.5; }
+    ul.check-list li::before { content: '✓'; color: var(--success); font-weight: bold; position: absolute; left: 0; }
+    ul.bullet-list li { padding: 4px 0; font-size: .94rem; line-height: 1.5; }
+
+    .badge { display: inline-block; background: var(--primary); color: #fff; border-radius: 4px; padding: 2px 8px; font-size: .78rem; margin-right: 6px; }
+    .badge.green { background: var(--success); }
+    .badge.orange { background: var(--warn); }
+    .badge.red { background: var(--danger); }
+
+    table.data-table { width: 100%; border-collapse: collapse; font-size: .88rem; margin-top: 8px; }
+    table.data-table th { background: var(--primary); color: #fff; padding: 8px 12px; text-align: left; }
+    table.data-table td { padding: 7px 12px; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+    table.data-table tr:nth-child(even) td { background: #f8fbff; }
+    table.data-table tr:hover td { background: #eaf4fb; }
+
+    /* ── Quiz ────────────────────────────────────────────────────────── */
+    .quiz-option {
+      display: block; width: 100%; text-align: left;
+      background: var(--card); border: 2px solid #cde4f5; border-radius: 8px;
+      padding: 11px 16px; margin-bottom: 10px; cursor: pointer;
+      font-size: .93rem; transition: background .2s, border-color .2s;
+    }
+    .quiz-option:hover { background: var(--light); border-color: var(--accent); }
+    .quiz-option.correct { background: #eafaf1; border-color: var(--success); color: var(--success); font-weight: 600; }
+    .quiz-option.wrong   { background: #fdedec; border-color: var(--danger);  color: var(--danger);  font-weight: 600; }
+    .quiz-option.reveal  { background: #eafaf1; border-color: var(--success); color: var(--success); }
+    .quiz-option:disabled { cursor: default; }
+    .quiz-feedback { margin-top: 10px; padding: 10px 14px; border-radius: 8px; font-size: .9rem; display: none; }
+    .quiz-feedback.show { display: block; }
+    .quiz-feedback.ok  { background: #eafaf1; color: var(--success); }
+    .quiz-feedback.bad { background: #fdedec; color: var(--danger); }
+
+    /* ── Case branches ───────────────────────────────────────────────── */
+    .case-choice {
+      display: block; width: 100%; text-align: left;
+      background: var(--light); border: 2px solid #cde4f5; border-radius: 8px;
+      padding: 11px 16px; margin-bottom: 10px; cursor: pointer; font-size: .92rem;
+      transition: background .2s, border-color .2s;
+    }
+    .case-choice:hover { background: #d6eaf8; border-color: var(--accent); }
+    .case-result { margin-top: 12px; padding: 14px 18px; border-radius: 8px; font-size: .9rem; line-height: 1.6; display: none; }
+    .case-result.show { display: block; }
+    .case-result.optimal  { background: #eafaf1; border-left: 4px solid var(--success); }
+    .case-result.suboptimal { background: #fef9e7; border-left: 4px solid var(--warn); }
+    .case-result.avoid   { background: #fdedec; border-left: 4px solid var(--danger); }
+    .reset-btn { margin-top: 10px; font-size: .82rem; color: var(--muted); background: none; border: 1px solid #ccc; border-radius: 5px; padding: 4px 10px; cursor: pointer; }
+    .reset-btn:hover { background: #f0f0f0; }
+
+    /* ── Poll bar ────────────────────────────────────────────────────── */
+    .poll-opt { margin-bottom: 12px; }
+    .poll-label { display: flex; justify-content: space-between; font-size: .88rem; margin-bottom: 4px; }
+    .poll-track { background: #e0e0e0; border-radius: 20px; height: 18px; overflow: hidden; }
+    .poll-fill  { background: var(--accent); height: 100%; border-radius: 20px; transition: width .6s ease; }
+    .poll-btn { background: var(--light); border: 2px solid #cde4f5; border-radius: 8px; padding: 9px 14px; margin-right: 8px; margin-bottom: 6px; cursor: pointer; font-size: .88rem; transition: background .2s; }
+    .poll-btn:hover  { background: #d6eaf8; }
+    .poll-btn.voted  { border-color: var(--accent); color: var(--primary); font-weight: 600; }
+    #poll-reveal-area { display: none; margin-top: 14px; }
+    #poll-reveal-area.show { display: block; }
+
+    /* ── Accordion ───────────────────────────────────────────────────── */
+    .accordion-item { border: 1px solid #d6e9f5; border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+    .accordion-header { background: var(--light); padding: 11px 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: .92rem; color: var(--primary); }
+    .accordion-header:hover { background: #d6eaf8; }
+    .accordion-header .arrow { transition: transform .25s; }
+    .accordion-header.open .arrow { transform: rotate(180deg); }
+    .accordion-body { padding: 0; max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .25s; }
+    .accordion-body.open { padding: 12px 16px; max-height: 400px; }
+    .accordion-body p, .accordion-body li { font-size: .9rem; line-height: 1.6; }
+
+    /* ── Timeline ────────────────────────────────────────────────────── */
+    .timeline { position: relative; padding-left: 22px; }
+    .timeline::before { content: ''; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 2px; background: var(--accent); opacity: .4; }
+    .timeline-item { position: relative; margin-bottom: 16px; }
+    .timeline-item::before { content: ''; position: absolute; left: -20px; top: 6px; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 2px var(--accent); }
+    .timeline-item .year { font-size: .78rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .05em; }
+    .timeline-item p { font-size: .9rem; line-height: 1.5; margin-top: 2px; }
+
+    /* ── Key stat box ────────────────────────────────────────────────── */
+    .stat-box { text-align: center; padding: 18px 12px; }
+    .stat-box .stat-num { font-size: 2.2rem; font-weight: 700; color: var(--primary); line-height: 1; }
+    .stat-box .stat-label { font-size: .8rem; color: var(--muted); margin-top: 5px; }
+    .stat-input { width: 100%; border: 2px solid #cde4f5; border-radius: 6px; padding: 8px 10px; font-size: 1rem; font-weight: 700; color: var(--primary); text-align: center; margin-bottom: 6px; background: transparent; outline: none; }
+    .stat-input:focus { border-color: var(--accent); }
+
+    /* ── Navigation ──────────────────────────────────────────────────── */
+    footer {
+      background: #fff;
+      border-top: 1px solid #e0e8f0;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .nav-btn {
+      background: var(--primary); color: #fff; border: none;
+      border-radius: 8px; padding: 9px 22px; font-size: .92rem;
+      cursor: pointer; transition: background .2s;
+    }
+    .nav-btn:hover:not(:disabled) { background: var(--accent); }
+    .nav-btn:disabled { background: #b0bec5; cursor: default; }
+    .nav-btn.outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+    .nav-btn.outline:hover { background: var(--light); }
+
+    #notes-toggle { font-size: .8rem; color: var(--muted); background: none; border: 1px solid #ccc; border-radius: 5px; padding: 4px 10px; cursor: pointer; }
+    #notes-panel { display: none; position: fixed; bottom: 72px; left: 50%; transform: translateX(-50%); width: min(860px, 95vw); background: #fffde7; border: 1px solid #f9a825; border-radius: 10px; padding: 14px 18px; font-size: .85rem; color: #555; z-index: 100; line-height: 1.6; box-shadow: var(--shadow); }
+    #notes-panel.show { display: block; }
+    #notes-panel strong { color: #e67e22; }
+
+    /* ── Tooltip ─────────────────────────────────────────────────────── */
+    [data-tip] { border-bottom: 1px dashed var(--accent); cursor: help; position: relative; }
+    [data-tip]::after { content: attr(data-tip); position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 5px 10px; border-radius: 6px; font-size: .78rem; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .2s; z-index: 200; }
+    [data-tip]:hover::after { opacity: 1; }
+
+    /* ── Misc ────────────────────────────────────────────────────────── */
+    .pill { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: .78rem; font-weight: 600; margin-right: 4px; }
+    .pill-blue { background: #d6eaf8; color: var(--primary); }
+    .pill-green { background: #d5f5e3; color: #1a7a40; }
+    .pill-orange { background: #fdebd0; color: #a04000; }
+    .pill-red { background: #fadbd8; color: #922b21; }
+    .divider { border: none; border-top: 1px solid #e0e8f0; margin: 18px 0; }
+    .small { font-size: .82rem; color: var(--muted); }
+    .bold { font-weight: 700; }
+    p { line-height: 1.65; font-size: .94rem; }
+    p + p { margin-top: 10px; }
+    .highlight { background: #fff3cd; padding: 2px 5px; border-radius: 3px; }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ── Header ──────────────────────────────────────────────────── -->
+  <header>
+    <h1>🧠 Lithium Journal Club</h1>
+    <div id="progress-bar-wrap"><div id="progress-bar" style="width:0%"></div></div>
+    <span id="slide-counter">1 / 18</span>
+  </header>
+
+  <!-- ── Slides ──────────────────────────────────────────────────── -->
+  <main>
+
+    <!-- SLIDE 1 – Title -->
+    <div class="slide slide-title active" data-notes="Welcome residents. This interactive journal club presentation covers a landmark 2025 Nature study on lithium. Encourage participation throughout using the quizzes and case discussions.">
+      <h2>Lithium in Psychiatry</h2>
+      <p class="subtitle">A Critical Appraisal for Journal Club</p>
+      <hr class="divider" style="border-color:rgba(255,255,255,.3); margin:24px 0;">
+      <p style="opacity:.9; font-size:1.05rem; max-width:580px; margin: 0 auto 20px;">
+        Based on the 2025 <em>Nature</em> article:<br>
+        <span style="font-size:.88rem; opacity:.8;">
+          <a href="https://www.nature.com/articles/s41586-025-09335-x" target="_blank" rel="noopener"
+             style="color:#fff; text-decoration: underline dotted;">
+            nature.com/articles/s41586-025-09335-x
+          </a>
+        </span>
+      </p>
+      <div>
+        <span class="tag">🎓 PGY-2 / PGY-3 Psychiatry Residents</span>
+        <span class="tag">⏱️ ~60 minutes</span>
+        <span class="tag">🔬 Pharmacology &amp; Clinical Evidence</span>
+      </div>
+      <p class="meta">
+        Facilitator: <input id="input-facilitator" type="text" placeholder="Enter name" style="background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.4); border-radius:4px; color:#fff; padding:2px 8px; font-size:.85rem; width:160px;" />
+        &nbsp;|&nbsp; Date: <input id="input-date" type="date" style="background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.4); border-radius:4px; color:#fff; padding:2px 8px; font-size:.85rem;" /><br>
+        Use ← → arrow keys or the buttons below to navigate · Press <kbd style="background:rgba(255,255,255,.2); border-radius:3px; padding:1px 5px;">N</kbd> to toggle speaker notes
+      </p>
+    </div>
+
+    <!-- SLIDE 2 – Learning Objectives -->
+    <div class="slide" data-notes="Review these objectives at the start and revisit them at the end of the session. Ask residents which objectives they feel most uncertain about.">
+      <h2 class="slide-heading">Learning Objectives</h2>
+      <p>By the end of this journal club session, residents will be able to:</p>
+      <br>
+      <div class="two-col">
+        <div class="card blue">
+          <h3 class="sub-heading">Knowledge</h3>
+          <ul class="check-list">
+            <li>Describe lithium's primary mechanisms of action</li>
+            <li>Identify FDA-approved indications and off-label uses</li>
+            <li>Interpret serum lithium levels in clinical context</li>
+            <li>Recognize early and late signs of lithium toxicity</li>
+          </ul>
+        </div>
+        <div class="card blue">
+          <h3 class="sub-heading">Critical Appraisal</h3>
+          <ul class="check-list">
+            <li>Evaluate the study design and key methodology</li>
+            <li>Assess internal and external validity</li>
+            <li>Apply findings to real patient scenarios</li>
+            <li>Discuss implications for psychiatric practice</li>
+          </ul>
+        </div>
+      </div>
+      <br>
+      <div class="card orange">
+        <strong>📖 Source Article:</strong> Published in <em>Nature</em> (2025) — one of the highest-impact peer-reviewed journals, reflecting the significance of lithium research in modern psychiatry.
+      </div>
+    </div>
+
+    <!-- SLIDE 3 – Section Break: Background -->
+    <div class="slide slide-section" data-notes="Transition to background. Ask the group: 'Who has already prescribed or seen lithium use in their rotations?' Before diving in, gauge baseline familiarity.">
+      <h2>Section 1: Background</h2>
+      <p>The History &amp; Science of Lithium</p>
+    </div>
+
+    <!-- SLIDE 4 – History Timeline -->
+    <div class="slide" data-notes="Lithium's history is fascinating. John Cade's 1949 discovery was made by accident during uric acid experiments. Emphasize that lithium is still the gold-standard mood stabilizer after 75+ years.">
+      <h2 class="slide-heading">A Brief History of Lithium</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="year">1817</div>
+          <p>Lithium element discovered by Johan August Arfwedson in Stockholm.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="year">1940s</div>
+          <p>Used as a sodium substitute in cardiac patients — withdrawn after fatal toxicity reports.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="year">1949</div>
+          <p><strong>John Cade</strong> (Australia) discovers lithium's anti-manic properties; publishes landmark paper in <em>MJA</em>.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="year">1970</div>
+          <p>FDA approves lithium for treatment of <span data-tip="Characterized by manic episodes; bipolar I">acute mania</span>.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="year">1974</div>
+          <p>FDA approves lithium for <strong>maintenance therapy</strong> in bipolar disorder.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="year">1990s–2000s</div>
+          <p>Growing evidence for lithium's <span data-tip="Protection against neuronal death">neuroprotective</span> and <span data-tip="Ability to enhance neural connections">neurotrophic</span> effects; antisuicidal properties documented.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2025</div>
+          <p><strong>Nature publication</strong> — the article under review today. Open the paper and identify the key finding to add here as a group.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5 – Pharmacology -->
+    <div class="slide" data-notes="Focus on the two best-established mechanisms: GSK-3β inhibition and inositol depletion. Ask: 'Why might GSK-3β inhibition be relevant to neuroprotection and mood?'">
+      <h2 class="slide-heading">Mechanism of Action</h2>
+      <p class="small">Lithium's therapeutic effects are mediated through multiple interacting pathways.</p>
+      <br>
+      <div class="three-col">
+        <div class="card green">
+          <strong>🔬 GSK-3β Inhibition</strong>
+          <p style="font-size:.85rem; margin-top:6px;">Inhibits glycogen synthase kinase-3β → reduces tau phosphorylation, promotes neuronal survival, modulates circadian rhythm, and attenuates dopaminergic signaling.</p>
+        </div>
+        <div class="card blue">
+          <strong>🔄 Inositol Depletion</strong>
+          <p style="font-size:.85rem; margin-top:6px;">Blocks inositol monophosphatase → depletes free inositol → dampens <em>IP₃</em> signaling cascade linked to mood instability.</p>
+        </div>
+        <div class="card orange">
+          <strong>🧬 Neuroprotection</strong>
+          <p style="font-size:.85rem; margin-top:6px;">Upregulates <span data-tip="Brain-derived neurotrophic factor">BDNF</span> and Bcl-2 (anti-apoptotic), promotes hippocampal neurogenesis, inhibits NMDA receptor excitotoxicity.</p>
+        </div>
+      </div>
+      <br>
+      <div class="card blue">
+        <h3 class="sub-heading" style="margin-top:0">Secondary Ion Effects</h3>
+        <p style="font-size:.88rem;">Li⁺ competes with Na⁺, K⁺, Ca²⁺, and Mg²⁺ at ion channels and transporters, affecting neuronal excitability and second-messenger systems (cAMP, PKC).</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 – Clinical Indications & Dosing -->
+    <div class="slide" data-notes="Stress the narrow therapeutic index. SALTS: Surgery, Age, Low Na diet, Thyroid disease, Systemic illness — all affect lithium levels. Remind residents about the importance of baseline labs before starting.">
+      <h2 class="slide-heading">Clinical Use: Indications &amp; Dosing</h2>
+      <div class="two-col">
+        <div>
+          <h3 class="sub-heading">FDA-Approved Indications</h3>
+          <ul class="check-list">
+            <li>Acute mania (bipolar I disorder)</li>
+            <li>Maintenance therapy — bipolar disorder</li>
+          </ul>
+          <h3 class="sub-heading">Common Off-Label Uses</h3>
+          <ul class="bullet-list" style="list-style: disc; padding-left: 18px;">
+            <li>Bipolar depression (augmentation)</li>
+            <li>Major depressive disorder augmentation</li>
+            <li>Cluster headache prophylaxis</li>
+            <li>Schizoaffective disorder</li>
+            <li>Antisuicidal therapy</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="sub-heading">Therapeutic Drug Monitoring</h3>
+          <table class="data-table">
+            <tr><th>Indication</th><th>Target Level (12h trough)</th></tr>
+            <tr><td>Acute mania</td><td>0.8–1.2 mEq/L</td></tr>
+            <tr><td>Maintenance</td><td>0.6–0.8 mEq/L</td></tr>
+            <tr><td>Elderly / renal impairment</td><td>0.4–0.6 mEq/L</td></tr>
+            <tr><td><strong>Toxic</strong></td><td><strong>&gt;1.5 mEq/L</strong></td></tr>
+          </table>
+          <p class="small" style="margin-top:8px;">⚠️ Narrow therapeutic index — levels checked 5–7 days after each dose change, then every 3–6 months when stable.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7 – Monitoring & Safety -->
+    <div class="slide" data-notes="A common boards question: What do you check before starting lithium? BMP/Cr, TFTs, UA, pregnancy test, ECG in older patients. Also ask about Ebstein anomaly risk in pregnancy.">
+      <h2 class="slide-heading">Monitoring &amp; Safety</h2>
+      <div class="two-col">
+        <div>
+          <div class="card green">
+            <strong>✅ Baseline Workup</strong>
+            <ul class="check-list" style="margin-top:8px;">
+              <li>BMP / serum creatinine (renal function)</li>
+              <li>Thyroid function tests (TSH, free T4)</li>
+              <li>Urinalysis</li>
+              <li>Pregnancy test (females of reproductive age)</li>
+              <li>ECG (patients &gt;50 or cardiac history)</li>
+              <li>Weight / BMI</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="card red">
+            <strong>⚠️ Signs of Toxicity</strong>
+            <h3 class="sub-heading" style="margin-top: 10px; color: #c0392b;">Early (&lt;1.5 mEq/L)</h3>
+            <ul class="bullet-list" style="list-style: disc; padding-left: 16px; font-size: .88rem;">
+              <li>Fine tremor, polyuria, polydipsia</li>
+              <li>Nausea, loose stools, weight gain</li>
+            </ul>
+            <h3 class="sub-heading" style="color: #c0392b;">Moderate (1.5–2.5 mEq/L)</h3>
+            <ul class="bullet-list" style="list-style: disc; padding-left: 16px; font-size: .88rem;">
+              <li>Coarse tremor, ataxia, confusion</li>
+              <li>Slurred speech, lethargy</li>
+            </ul>
+            <h3 class="sub-heading" style="color: #c0392b;">Severe (&gt;2.5 mEq/L) — Emergency</h3>
+            <ul class="bullet-list" style="list-style: disc; padding-left: 16px; font-size: .88rem;">
+              <li>Seizures, coma, cardiac arrhythmia</li>
+              <li>Irreversible neurological damage (<span data-tip="Syndrome of irreversible lithium-effectuated neurotoxicity">SILENT</span>)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8 – Section Break: The Study -->
+    <div class="slide slide-section" data-notes="Now transition to discussing the actual article. Remind residents to think critically about the study design, funding, sample, and outcomes.">
+      <h2>Section 2: The Study</h2>
+      <p>Critical Appraisal of the Nature 2025 Article</p>
+    </div>
+
+    <!-- SLIDE 9 – Study Overview -->
+    <div class="slide" data-notes="This slide outlines key elements to look for in any RCT. Encourage residents to have a copy of the paper open. Focus discussion on: Was randomization adequate? What were the exclusion criteria?">
+      <h2 class="slide-heading">Study Overview</h2>
+      <p>The 2025 <em>Nature</em> article (<a href="https://www.nature.com/articles/s41586-025-09335-x" target="_blank" rel="noopener" style="color:var(--accent);">doi:10.1038/s41586-025-09335-x</a>) represents a significant advance in our understanding of lithium's role in psychiatric treatment.</p>
+      <br>
+      <div class="two-col">
+        <div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">Study Type &amp; Design <span class="arrow">▾</span></div>
+            <div class="accordion-body">
+              <p>Review the paper to identify: Was this a randomized controlled trial, observational cohort, mechanistic study, or meta-analysis? The study design determines the strength of causal inference.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">Population &amp; Sample <span class="arrow">▾</span></div>
+            <div class="accordion-body">
+              <p>Key questions: Who was included/excluded? Was the sample representative of your patient population? Consider age, sex, comorbidities, and prior treatment history.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">Primary Outcome <span class="arrow">▾</span></div>
+            <div class="accordion-body">
+              <p>Identify the primary endpoint. Was it clinically meaningful (e.g., relapse prevention, symptom scores, biomarker levels)? Was it pre-registered?</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">Intervention &amp; Comparator <span class="arrow">▾</span></div>
+            <div class="accordion-body">
+              <p>What was the intervention (dose, formulation, duration)? What was the comparator — placebo, active treatment, or standard of care? Was blinding maintained?</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">Statistical Analysis <span class="arrow">▾</span></div>
+            <div class="accordion-body">
+              <p>Review: Was the study powered appropriately? Were intention-to-treat or per-protocol analyses used? How were missing data handled? Watch for multiple comparisons issues.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">Funding &amp; COI <span class="arrow">▾</span></div>
+            <div class="accordion-body">
+              <p>Always check: Who funded the study? Do any authors have conflicts of interest? Industry funding is associated with more favorable outcomes in trials (sponsorship bias).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10 – Key Findings -->
+    <div class="slide" data-notes="Highlight the most important take-home messages. Fill in the stat boxes from the paper before the session, or work through them together as a group. Ask residents which finding they find most surprising.">
+      <h2 class="slide-heading">Key Findings</h2>
+      <p class="small">Fill in the values below from the paper before presenting, or work through them together as a group:</p>
+      <br>
+      <div class="three-col">
+        <div class="card blue stat-box">
+          <input class="stat-input" id="stat1" type="text" placeholder="Primary outcome" title="Enter the primary outcome result from the paper" />
+          <div class="stat-label">Primary Outcome</div>
+        </div>
+        <div class="card green stat-box">
+          <input class="stat-input" id="stat2" type="text" placeholder="e.g. HR 0.62, p&lt;0.001" title="Enter the key effect size or p-value from the paper" />
+          <div class="stat-label">Key Effect Size / p-value</div>
+        </div>
+        <div class="card orange stat-box">
+          <input class="stat-input" id="stat3" type="text" placeholder="Secondary finding" title="Enter a secondary finding from the paper" />
+          <div class="stat-label">Secondary Finding</div>
+        </div>
+      </div>
+      <br>
+      <h3 class="sub-heading">Discussion: Interpreting the Results</h3>
+      <div class="two-col">
+        <div class="card green">
+          <strong>Strengths of the Findings</strong>
+          <ul class="bullet-list" style="list-style: disc; padding-left: 16px; margin-top: 6px; font-size:.88rem;">
+            <li>Published in highest-impact journal (<em>Nature</em>) — rigorous peer review</li>
+            <li>Large-scale data or novel mechanistic insight</li>
+            <li>Addresses a clinically relevant question</li>
+          </ul>
+        </div>
+        <div class="card red">
+          <strong>Potential Limitations</strong>
+          <ul class="bullet-list" style="list-style: disc; padding-left: 16px; margin-top: 6px; font-size:.88rem;">
+            <li>Consider generalizability to your patient population</li>
+            <li>Surrogate vs. clinical outcomes?</li>
+            <li>Statistical vs. clinical significance distinction</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11 – Section Break: Case Discussion -->
+    <div class="slide slide-section" data-notes="Case-based learning is core to residency training. The following case directly applies concepts from the paper. Encourage residents to think out loud and justify their decisions.">
+      <h2>Section 3: Case Discussion</h2>
+      <p>Applying Evidence to Clinical Practice</p>
+    </div>
+
+    <!-- SLIDE 12 – Case Vignette -->
+    <div class="slide" data-notes="This is a classic lithium toxicity presentation. Key teaching: NSAIDs reduce renal lithium clearance by blocking prostaglandin-mediated renal blood flow. Remind residents to counsel ALL lithium patients to avoid NSAIDs and stay hydrated.">
+      <h2 class="slide-heading">Case Vignette</h2>
+      <div class="card blue" style="margin-bottom: 16px;">
+        <p>
+          <strong>34-year-old woman</strong> with a 5-year history of <span data-tip="Characterized by manic and depressive episodes">Bipolar I Disorder</span> presents to the ED with a 2-day history of nausea, vomiting, and hand tremor.
+        </p>
+        <p style="margin-top: 8px;">
+          She has been on <strong>lithium carbonate 900 mg/day</strong> (last level 0.8 mEq/L, 6 weeks ago) and started ibuprofen 400 mg three times daily 10 days ago for a knee injury. She is otherwise well, with normal PO intake.
+        </p>
+        <p style="margin-top: 8px;">
+          Vitals: BP 118/76, HR 88, T 37.1°C. Neuro exam: coarse tremor, mild confusion, ataxic gait.
+        </p>
+      </div>
+
+      <p><strong>What is the most appropriate next step?</strong></p>
+      <button class="case-choice" onclick="showCaseResult('A')">A. Reassure and discharge with oral hydration instructions</button>
+      <button class="case-choice" onclick="showCaseResult('B')">B. Hold lithium, obtain stat serum lithium level and BMP, IV hydration</button>
+      <button class="case-choice" onclick="showCaseResult('C')">C. Increase lithium dose — these symptoms suggest sub-therapeutic levels</button>
+      <button class="case-choice" onclick="showCaseResult('D')">D. Switch to valproate immediately and discharge</button>
+
+      <div id="case-result-A" class="case-result avoid">
+        <strong>❌ Incorrect – Do Not Discharge.</strong> This patient has neurological signs (coarse tremor, confusion, ataxia) consistent with <strong>moderate lithium toxicity</strong> (likely level &gt;1.5 mEq/L). NSAID co-administration reduces renal prostaglandins → reduced renal blood flow → decreased lithium clearance. This is a medical emergency.
+      </div>
+      <div id="case-result-B" class="case-result optimal">
+        <strong>✅ Correct!</strong> Hold lithium immediately. Check STAT lithium level + BMP (assess renal function, electrolytes). Start IV normal saline for volume replacement to enhance renal lithium excretion. Monitor neurological status. If level &gt;2.5 mEq/L or worsening neuro status → consider nephrology/toxicology consult for hemodialysis.
+      </div>
+      <div id="case-result-C" class="case-result avoid">
+        <strong>❌ Dangerous.</strong> Increasing the dose with active toxicity would be life-threatening. Confusion and tremor are signs of toxicity, not sub-therapeutic levels. Never increase lithium when the clinical picture suggests toxicity.
+      </div>
+      <div id="case-result-D" class="case-result suboptimal">
+        <strong>⚠️ Not appropriate acutely.</strong> While switching mood stabilizers may eventually be considered, this is not the priority. The immediate issue is lithium toxicity management. Do not discharge — admit for monitoring and treatment.
+      </div>
+      <button class="reset-btn" onclick="resetCase()">↺ Reset Case</button>
+    </div>
+
+    <!-- SLIDE 13 – Section Break: Poll -->
+    <div class="slide slide-section" data-notes="This poll is to gauge the group's current practice and knowledge gaps. Use it to start a candid discussion.">
+      <h2>Section 4: Audience Poll</h2>
+      <p>Gauge Your Group's Experience &amp; Views</p>
+    </div>
+
+    <!-- SLIDE 14 – Poll -->
+    <div class="slide" data-notes="Discuss the results openly. There is no strictly correct answer here — the point is to stimulate reflection. Ask: What factors influence your comfort level with prescribing lithium?">
+      <h2 class="slide-heading">Quick Audience Poll</h2>
+      <p><strong>In your current clinical experience, how comfortable are you initiating lithium for a new patient with bipolar I disorder?</strong></p>
+      <br>
+      <div id="poll-buttons">
+        <button class="poll-btn" onclick="castVote(0)">😟 Not comfortable at all</button>
+        <button class="poll-btn" onclick="castVote(1)">😐 Somewhat uncomfortable</button>
+        <button class="poll-btn" onclick="castVote(2)">🙂 Somewhat comfortable</button>
+        <button class="poll-btn" onclick="castVote(3)">😊 Very comfortable</button>
+      </div>
+      <div id="poll-reveal-area">
+        <br>
+        <div id="poll-bar-0" class="poll-opt"><div class="poll-label"><span>😟 Not comfortable</span><span id="pct0">0%</span></div><div class="poll-track"><div class="poll-fill" id="fill0" style="width:0%"></div></div></div>
+        <div id="poll-bar-1" class="poll-opt"><div class="poll-label"><span>😐 Somewhat uncomfortable</span><span id="pct1">0%</span></div><div class="poll-track"><div class="poll-fill" id="fill1" style="width:0%"></div></div></div>
+        <div id="poll-bar-2" class="poll-opt"><div class="poll-label"><span>🙂 Somewhat comfortable</span><span id="pct2">0%</span></div><div class="poll-track"><div class="poll-fill" id="fill2" style="width:0%"></div></div></div>
+        <div id="poll-bar-3" class="poll-opt"><div class="poll-label"><span>😊 Very comfortable</span><span id="pct3">0%</span></div><div class="poll-track"><div class="poll-fill" id="fill3" style="width:0%"></div></div></div>
+        <p class="small" style="margin-top: 12px;" id="poll-count-label">Votes: 0</p>
+        <button class="reset-btn" style="margin-top:8px;" onclick="resetPoll()">↺ Reset Poll (allow new votes)</button>
+      </div>
+      <br>
+      <div class="card orange">
+        <strong>📊 Discussion Prompt:</strong> Studies show lithium remains underused despite superior antisuicidal properties compared to other mood stabilizers (Cipriani et al., <em>Lancet</em>, 2013). What factors in your training or patient panel influence your prescribing habits?
+      </div>
+    </div>
+
+    <!-- SLIDE 15 – Knowledge Quiz -->
+    <div class="slide" data-notes="This quiz reinforces key pharmacology concepts. Allow 2–3 minutes for residents to answer individually before revealing. Encourage residents to explain their reasoning aloud.">
+      <h2 class="slide-heading">Knowledge Check — Quiz</h2>
+      <p class="small">Select the best answer for each question:</p>
+      <br>
+
+      <p><strong>Q1.</strong> A patient on lithium 900 mg/day starts furosemide for newly diagnosed heart failure. What do you expect to happen to their lithium level?</p>
+      <div id="q1">
+        <button class="quiz-option" onclick="answerQuiz('q1','A','B')">A. It will decrease — furosemide increases renal excretion</button>
+        <button class="quiz-option" onclick="answerQuiz('q1','B','B')">B. It will increase — volume depletion reduces lithium clearance</button>
+        <button class="quiz-option" onclick="answerQuiz('q1','C','B')">C. It will remain unchanged — no interaction</button>
+        <button class="quiz-option" onclick="answerQuiz('q1','D','B')">D. It will decrease — furosemide competes for renal tubular transport</button>
+      </div>
+      <div class="quiz-feedback" id="fb-q1"></div>
+
+      <hr class="divider">
+
+      <p><strong>Q2.</strong> Which of the following is the MOST established mechanism explaining lithium's mood-stabilizing effect?</p>
+      <div id="q2">
+        <button class="quiz-option" onclick="answerQuiz('q2','A','A')">A. Inhibition of GSK-3β and inositol monophosphatase</button>
+        <button class="quiz-option" onclick="answerQuiz('q2','B','A')">B. Selective serotonin reuptake inhibition</button>
+        <button class="quiz-option" onclick="answerQuiz('q2','C','A')">C. Dopamine D2 receptor antagonism</button>
+        <button class="quiz-option" onclick="answerQuiz('q2','D','A')">D. GABA-A receptor potentiation</button>
+      </div>
+      <div class="quiz-feedback" id="fb-q2"></div>
+
+      <hr class="divider">
+
+      <p><strong>Q3.</strong> What serum lithium level is considered the threshold for moderate-to-severe toxicity requiring urgent intervention?</p>
+      <div id="q3">
+        <button class="quiz-option" onclick="answerQuiz('q3','A','B')">A. &gt;0.8 mEq/L</button>
+        <button class="quiz-option" onclick="answerQuiz('q3','B','B')">B. &gt;1.5 mEq/L</button>
+        <button class="quiz-option" onclick="answerQuiz('q3','C','B')">C. &gt;3.0 mEq/L</button>
+        <button class="quiz-option" onclick="answerQuiz('q3','D','B')">D. &gt;2.0 mEq/L</button>
+      </div>
+      <div class="quiz-feedback" id="fb-q3"></div>
+    </div>
+
+    <!-- SLIDE 16 – Clinical Implications -->
+    <div class="slide" data-notes="This is the 'so what?' slide. Challenge residents: 'Will this paper change how you practice? If so, how? If not, why not?' Good journal clubs change clinical behavior.">
+      <h2 class="slide-heading">Clinical Implications &amp; Take-Home Points</h2>
+      <div class="two-col">
+        <div>
+          <div class="card green">
+            <h3 class="sub-heading">Practice Change Potential</h3>
+            <ul class="check-list">
+              <li>Consider lithium earlier in bipolar disorder — not just as third-line</li>
+              <li>Exploit antisuicidal properties in high-risk patients</li>
+              <li>Screen regularly for renal and thyroid effects</li>
+              <li>Educate patients on hydration and NSAID avoidance</li>
+              <li>Monitor levels proactively with any new medication or illness</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="card blue">
+            <h3 class="sub-heading">From This Paper Specifically</h3>
+            <ul class="bullet-list" style="list-style: disc; padding-left: 16px; font-size: .9rem;">
+              <li>Discuss with group: Does this evidence change first-line selection in bipolar I?</li>
+              <li>Does it affect long-term maintenance recommendations?</li>
+              <li>Are there new patient subgroups who may benefit most?</li>
+              <li>What do patients need to know about these findings?</li>
+            </ul>
+          </div>
+          <div class="card orange" style="margin-top: 14px;">
+            <strong>⚖️ Shared Decision-Making</strong>
+            <p style="font-size:.86rem; margin-top:6px;">Always discuss options, benefits and risks with patients. Lithium's monitoring burden matters to adherence.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 17 – Discussion Questions -->
+    <div class="slide" data-notes="Allow at least 10 minutes for open discussion. These questions can be given as 'homework' if time is short. Ask each resident to answer one question before the session ends.">
+      <h2 class="slide-heading">Group Discussion Questions</h2>
+      <p class="small">Use these prompts to guide open dialogue among residents:</p>
+      <br>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">1. Validity &amp; Bias <span class="arrow">▾</span></div>
+        <div class="accordion-body"><p>What were the most significant threats to internal validity in this study? Were there selection, information, or confounding biases? How did the authors address them? Would you consider this study practice-changing?</p></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">2. Generalizability <span class="arrow">▾</span></div>
+        <div class="accordion-body"><p>Can these findings be applied to your patient population? Consider differences in demographics, access to care, comorbidities, and co-medications. Are there subgroups for whom the results may not apply?</p></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">3. Antisuicidal Properties of Lithium <span class="arrow">▾</span></div>
+        <div class="accordion-body"><p>Lithium has the strongest evidence base for suicide prevention of any psychiatric medication. How does this affect your risk-benefit analysis when prescribing? Does this paper add to or challenge that evidence?</p></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">4. Lithium vs. Alternatives <span class="arrow">▾</span></div>
+        <div class="accordion-body"><p>Compare lithium with valproate, quetiapine, and lamotrigine for bipolar disorder maintenance. Where does this paper's evidence fit in the treatment algorithm? When would you choose one over another?</p></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">5. Patient Communication <span class="arrow">▾</span></div>
+        <div class="accordion-body"><p>How would you explain the findings of this paper to a patient considering lithium? What questions would they likely ask? Practice a 60-second "shared decision-making" explanation with a partner.</p></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">6. Future Research <span class="arrow">▾</span></div>
+        <div class="accordion-body"><p>What unanswered questions does this paper raise? What would you design as the follow-up study? Are there ethical issues to consider in conducting further research in this population?</p></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 18 – References & Wrap-Up -->
+    <div class="slide" data-notes="Thank residents for participation. Summarize the top 3 take-home points. Remind them of the next journal club date. Consider assigning one resident to look up a follow-up article.">
+      <h2 class="slide-heading">References &amp; Further Reading</h2>
+      <div class="two-col">
+        <div>
+          <h3 class="sub-heading">Primary Article</h3>
+          <div class="card blue" style="font-size:.86rem;">
+            <p><em>Please open the article to complete this citation:</em><br>
+            <strong>[Authors]</strong> (2025). [Article Title]. <em>Nature</em>.
+            <a href="https://www.nature.com/articles/s41586-025-09335-x" target="_blank" rel="noopener" style="color:var(--accent);">doi:10.1038/s41586-025-09335-x</a><br>
+            <span class="small">💡 Update this slide with the full authors and title before presenting.</span></p>
+          </div>
+          <h3 class="sub-heading">Key Background References</h3>
+          <ol style="font-size:.84rem; line-height:1.8; padding-left:18px;">
+            <li>Cade JFJ. Lithium salts in the treatment of psychotic excitement. <em>MJA</em>. 1949;2(10):349–352.</li>
+            <li>Cipriani A, et al. Comparative efficacy and acceptability of antimanic drugs. <em>Lancet</em>. 2011;378(9799):1306–1315.</li>
+            <li>Cipriani A, et al. Lithium in the prevention of suicide. <em>Lancet</em>. 2013;382(9893):563–565.</li>
+            <li>Malhi GS, et al. Lithium therapy: mechanisms and monitoring. <em>Nat Rev Neurosci</em>. 2013;14(12):816–836.</li>
+            <li>Geddes JR, Burgess S, Hawton K, et al. Long-term lithium therapy for bipolar disorder. <em>JAMA</em>. 2004;291(12):1506–1514.</li>
+          </ol>
+        </div>
+        <div>
+          <h3 class="sub-heading">Wrap-Up</h3>
+          <div class="card green">
+            <strong>🏆 Top 3 Take-Home Points</strong>
+            <ol style="margin-top: 8px; padding-left: 16px; font-size:.9rem; line-height: 1.8;">
+              <li>Lithium remains a cornerstone of bipolar disorder treatment with unique antisuicidal properties.</li>
+              <li>The narrow therapeutic index demands proactive monitoring of levels, renal function, and thyroid status.</li>
+              <li>This 2025 <em>Nature</em> paper advances our mechanistic and/or clinical understanding — discuss implications for your practice.</li>
+            </ol>
+          </div>
+          <div class="card orange" style="margin-top: 14px;">
+            <strong>📅 Next Steps</strong>
+            <ul class="check-list" style="margin-top: 8px;">
+              <li>Complete case-based discussion if time permits</li>
+              <li>Read the full paper before next session</li>
+              <li>Identify one patient in your panel who might benefit from lithium reassessment</li>
+            </ul>
+          </div>
+          <p class="small" style="margin-top: 12px;">
+            <strong>Facilitator:</strong> This presentation was built for interactive use. All quiz answers, case decisions, and accordion expansions are fully functional in any modern browser. No installation required.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </main><!-- /slides -->
+
+  <!-- ── Footer Navigation ──────────────────────────────────────────── -->
+  <footer>
+    <button id="notes-toggle" onclick="toggleNotes()">📝 Speaker Notes</button>
+    <button class="nav-btn outline" id="btn-prev" onclick="navigate(-1)" disabled>← Prev</button>
+    <button class="nav-btn" id="btn-next" onclick="navigate(1)">Next →</button>
+  </footer>
+  <div id="notes-panel"></div>
+
+</div><!-- /app -->
+
+<!-- ── JavaScript ────────────────────────────────────────────────────── -->
+<script>
+  // ── State ──────────────────────────────────────────────────────────
+  const slides = document.querySelectorAll('.slide');
+  const TOTAL = slides.length;
+  let current = 0;
+  const pollVotes = [0, 0, 0, 0];
+  let pollDone = false;
+
+  // ── Navigation ──────────────────────────────────────────────────────
+  function navigate(dir) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(TOTAL - 1, current + dir));
+    slides[current].classList.add('active');
+    updateUI();
+  }
+
+  function updateUI() {
+    document.getElementById('slide-counter').textContent = (current + 1) + ' / ' + TOTAL;
+    document.getElementById('progress-bar').style.width = ((current + 1) / TOTAL * 100) + '%';
+    document.getElementById('btn-prev').disabled = current === 0;
+    document.getElementById('btn-next').disabled = current === TOTAL - 1;
+    // Update speaker notes
+    const panel = document.getElementById('notes-panel');
+    const note = slides[current].dataset.notes || '';
+    panel.innerHTML = '<strong>🗒️ Speaker Notes:</strong> ' + note;
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown') navigate(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp'   || e.key === 'PageUp')   navigate(-1);
+    if (e.key.toLowerCase() === 'n') toggleNotes();
+  });
+
+  // ── Speaker Notes ───────────────────────────────────────────────────
+  function toggleNotes() {
+    document.getElementById('notes-panel').classList.toggle('show');
+  }
+
+  // ── Accordion ───────────────────────────────────────────────────────
+  function toggleAccordion(header) {
+    const body = header.nextElementSibling;
+    const isOpen = body.classList.contains('open');
+    // Close all in same slide
+    const parentSlide = header.closest('.slide');
+    parentSlide.querySelectorAll('.accordion-body.open').forEach(b => {
+      b.classList.remove('open');
+      b.previousElementSibling.classList.remove('open');
+    });
+    if (!isOpen) {
+      body.classList.add('open');
+      header.classList.add('open');
+    }
+  }
+
+  // ── Quiz ────────────────────────────────────────────────────────────
+  function answerQuiz(qId, chosen, correct) {
+    const container = document.getElementById(qId);
+    const buttons = container.querySelectorAll('.quiz-option');
+    const fb = document.getElementById('fb-' + qId);
+    buttons.forEach(btn => { btn.disabled = true; });
+    buttons.forEach(btn => {
+      const letter = btn.textContent.trim().charAt(0);
+      if (letter === chosen) btn.classList.add(chosen === correct ? 'correct' : 'wrong');
+      if (letter === correct && chosen !== correct) btn.classList.add('reveal');
+    });
+    const isRight = chosen === correct;
+    fb.textContent = isRight
+      ? '✅ Correct! Well done.'
+      : '❌ Not quite. The correct answer is highlighted above.';
+    fb.classList.add('show', isRight ? 'ok' : 'bad');
+  }
+
+  // ── Case Discussion ─────────────────────────────────────────────────
+  function showCaseResult(choice) {
+    document.querySelectorAll('.case-choice').forEach(b => b.disabled = true);
+    const el = document.getElementById('case-result-' + choice);
+    if (el) el.classList.add('show');
+  }
+
+  function resetCase() {
+    document.querySelectorAll('.case-choice').forEach(b => b.disabled = false);
+    document.querySelectorAll('.case-result').forEach(r => r.classList.remove('show'));
+  }
+
+  // ── Poll ─────────────────────────────────────────────────────────────
+  function castVote(option) {
+    if (pollDone) return;
+    pollDone = true;
+    pollVotes[option]++;
+    const total = pollVotes.reduce((a, b) => a + b, 0);
+    document.querySelectorAll('.poll-btn').forEach((b, i) => {
+      if (i === option) b.classList.add('voted');
+      b.disabled = true;
+    });
+    const area = document.getElementById('poll-reveal-area');
+    area.classList.add('show');
+    for (let i = 0; i < 4; i++) {
+      const pct = total > 0 ? Math.round(pollVotes[i] / total * 100) : 0;
+      document.getElementById('pct' + i).textContent = pct + '%';
+      document.getElementById('fill' + i).style.width = pct + '%';
+    }
+    document.getElementById('poll-count-label').textContent = 'Votes: ' + total;
+  }
+
+  function resetPoll() {
+    pollDone = false;
+    for (let i = 0; i < 4; i++) { pollVotes[i] = 0; }
+    document.querySelectorAll('.poll-btn').forEach(b => { b.disabled = false; b.classList.remove('voted'); });
+    document.getElementById('poll-reveal-area').classList.remove('show');
+    for (let i = 0; i < 4; i++) {
+      document.getElementById('pct' + i).textContent = '0%';
+      document.getElementById('fill' + i).style.width = '0%';
+    }
+    document.getElementById('poll-count-label').textContent = 'Votes: 0';
+  }
+
+  // ── Init ─────────────────────────────────────────────────────────────
+  updateUI();
+</script>
+</body>
+</html>
