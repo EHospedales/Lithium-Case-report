@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journal Club: Anxiolytic Effects of Quetiapine and Lithium (PMID 41762225)</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+<style>
+  :root {
+    --primary: #1a365d;
+    --secondary: #2b6cb0;
+    --accent: #ed8936;
+    --success: #38a169;
+    --danger: #e53e3e;
+    --bg: #f7fafc;
+    --card-bg: #ffffff;
+    --text: #2d3748;
+    --text-light: #718096;
+    --border: #e2e8f0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* Navigation */
+  .nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .nav-bar .title { font-size: 0.95rem; font-weight: 600; }
+  .nav-bar .progress-info { font-size: 0.85rem; opacity: 0.9; }
+  .progress-bar-container {
+    position: fixed;
+    top: 48px;
+    left: 0; right: 0;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    z-index: 999;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  /* Slide container */
+  .slides-container {
+    margin-top: 60px;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+  }
+
+  .slide {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  .slide.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--secondary);
+  }
+  .card.accent { border-left-color: var(--accent); }
+  .card.success { border-left-color: var(--success); }
+  .card.danger { border-left-color: var(--danger); }
+
+  .card h2 {
+    font-size: 1.6rem;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+  }
+  .card h3 {
+    font-size: 1.2rem;
+    color: var(--secondary);
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+  }
+  .card p, .card li {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .card ul { padding-left: 1.5rem; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  /* Title slide */
+  .title-slide {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    border-left: none;
+  }
+  .title-slide h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  .title-slide .author {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+  .title-slide .pmid {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-top: 0.5rem;
+  }
+
+  /* Section dividers */
+  .section-divider {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: linear-gradient(135deg, #2d3748, #4a5568);
+    color: #fff;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    border-left: none;
+  }
+  .section-divider h2 {
+    color: #fff;
+    font-size: 2rem;
+  }
+  .section-divider p {
+    opacity: 0.85;
+    font-size: 1.1rem;
+  }
+
+  /* Interactive elements */
+  .reveal-box {
+    background: #edf2f7;
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .reveal-box:hover { border-color: var(--secondary); background: #e2e8f0; }
+  .reveal-box .reveal-prompt {
+    color: var(--secondary);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .reveal-box .reveal-prompt::before { content: "👆 "; }
+  .reveal-box .reveal-content {
+    display: none;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--text);
+  }
+  .reveal-box.revealed .reveal-content { display: block; }
+  .reveal-box.revealed .reveal-prompt { color: var(--success); }
+  .reveal-box.revealed .reveal-prompt::before { content: "✅ "; }
+  .reveal-box.revealed { border-color: var(--success); border-style: solid; background: #f0fff4; }
+
+  /* Quiz */
+  .quiz-container {
+    background: #fffff0;
+    border: 2px solid #f6e05e;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  .quiz-container h3 {
+    color: #975a16;
+    margin-top: 0;
+  }
+  .quiz-container h3::before { content: "🧠 "; }
+  .quiz-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    color: var(--text);
+  }
+  .quiz-option:hover { border-color: var(--secondary); background: #ebf8ff; }
+  .quiz-option.correct {
+    border-color: var(--success);
+    background: #f0fff4;
+    color: var(--success);
+    font-weight: 600;
+  }
+  .quiz-option.incorrect {
+    border-color: var(--danger);
+    background: #fff5f5;
+    color: var(--danger);
+    opacity: 0.7;
+  }
+  .quiz-option.disabled { cursor: default; pointer-events: none; }
+  .quiz-explanation {
+    display: none;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f0fff4;
+    border-radius: 8px;
+    border-left: 3px solid var(--success);
+    font-size: 0.95rem;
+  }
+
+  /* Discussion prompt */
+  .discussion-prompt {
+    background: #faf5ff;
+    border: 2px solid #d6bcfa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  .discussion-prompt h3 { color: #6b46c1; margin-top: 0; }
+  .discussion-prompt h3::before { content: "💬 "; }
+
+  /* Poll */
+  .poll-container {
+    background: #ebf8ff;
+    border: 2px solid #90cdf4;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  .poll-container h3 { color: var(--secondary); margin-top: 0; }
+  .poll-container h3::before { content: "📊 "; }
+  .poll-option {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    cursor: pointer;
+  }
+  .poll-option input[type="radio"] { margin-right: 0.75rem; transform: scale(1.2); }
+  .poll-bar-container {
+    display: none;
+    margin-top: 1rem;
+  }
+  .poll-bar-row {
+    display: flex;
+    align-items: center;
+    margin: 0.4rem 0;
+  }
+  .poll-bar-label { width: 160px; font-size: 0.85rem; }
+  .poll-bar-track {
+    flex: 1;
+    height: 24px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0 0.5rem;
+  }
+  .poll-bar-fill {
+    height: 100%;
+    background: var(--secondary);
+    border-radius: 4px;
+    transition: width 0.6s ease;
+    width: 0;
+  }
+  .poll-bar-pct { font-size: 0.85rem; font-weight: 600; width: 40px; }
+
+  /* Images */
+  .figure-container {
+    margin: 1rem 0;
+    text-align: center;
+  }
+  .figure-container img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .figure-container img:hover { transform: scale(1.02); }
+  .figure-caption {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  /* Image lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 95vw;
+    max-height: 95vh;
+    border-radius: 8px;
+  }
+
+  /* Timer */
+  .timer-widget {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #fff;
+    border: 2px solid var(--secondary);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+  }
+  .timer-display {
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--primary);
+    min-width: 60px;
+    text-align: center;
+  }
+  .timer-btn {
+    padding: 0.3rem 0.75rem;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .timer-start { background: var(--success); color: #fff; }
+  .timer-start:hover { background: #2f855a; }
+  .timer-reset { background: var(--border); color: var(--text); }
+  .timer-reset:hover { background: #cbd5e0; }
+
+  /* Highlight box */
+  .highlight-box {
+    background: #fffbeb;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+  .highlight-box strong { color: #975a16; }
+
+  /* Key point */
+  .key-point {
+    background: #ebf8ff;
+    border-left: 4px solid var(--secondary);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+  }
+
+  /* Navigation buttons */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0 3rem;
+  }
+  .nav-btn {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-btn.prev { background: var(--border); color: var(--text); }
+  .nav-btn.prev:hover { background: #cbd5e0; }
+  .nav-btn.next { background: var(--secondary); color: #fff; }
+  .nav-btn.next:hover { background: #2c5282; }
+  .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .slide-counter { font-size: 0.9rem; color: var(--text-light); }
+
+  /* Sidebar TOC */
+  .toc-toggle {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 1001;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .toc-panel {
+    display: none;
+    position: fixed;
+    bottom: 5rem;
+    right: 1.5rem;
+    z-index: 1001;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    padding: 1rem;
+    max-height: 60vh;
+    overflow-y: auto;
+    width: 280px;
+  }
+  .toc-panel.open { display: block; }
+  .toc-panel h4 { margin-bottom: 0.5rem; color: var(--primary); }
+  .toc-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    color: var(--text);
+    transition: background 0.2s;
+  }
+  .toc-item:hover { background: #edf2f7; }
+  .toc-item.current { background: #ebf8ff; color: var(--secondary); font-weight: 600; }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .slides-container { padding: 0.5rem; }
+    .card { padding: 1.25rem; }
+    .title-slide h1 { font-size: 1.4rem; }
+    .nav-btn { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+  }
+
+  /* QR Modal */
+  .qr-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+  }
+  .qr-modal.open { display: flex; }
+  .qr-modal-content {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+  }
+  .qr-modal-content h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+  .qr-modal-content canvas {
+    margin: 1rem auto;
+    display: block;
+  }
+  .qr-modal-content .qr-url {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    word-break: break-all;
+    margin-top: 0.75rem;
+    padding: 0.5rem;
+    background: #f7fafc;
+    border-radius: 6px;
+  }
+  .qr-modal-content .qr-close {
+    margin-top: 1rem;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  .open-poll-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--secondary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0.75rem 0;
+  }
+  .open-poll-btn:hover { background: #2c5282; }
+  .live-badge {
+    display: inline-block;
+    background: #e53e3e;
+    color: #fff;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-left: 0.5rem;
+    animation: pulse-live 2s infinite;
+  }
+  @keyframes pulse-live {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  .vote-count {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 0.5rem;
+  }
+
+  /* Print */
+  @media print {
+    .nav-bar, .progress-bar-container, .nav-buttons, .toc-toggle, .toc-panel { display: none !important; }
+    .slide { display: block !important; page-break-after: always; }
+    .slides-container { margin-top: 0; }
+    .reveal-box .reveal-content { display: block !important; }
+  }
+
+  /* Keyboard shortcut hint */
+  .kbd-hint {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    z-index: 1001;
+  }
+  .kbd-hint kbd {
+    background: #edf2f7;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
+    font-family: inherit;
+    font-size: 0.75rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="nav-bar">
+  <div class="title">Journal Club: Quetiapine & Lithium in TRD</div>
+  <div class="progress-info" id="progressInfo">Slide 1 / 12</div>
+</div>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="Enlarged figure">
+</div>
+
+<!-- QR Code Modal -->
+<div class="qr-modal" id="qrModal" onclick="closeQR(event)">
+  <div class="qr-modal-content" onclick="event.stopPropagation()">
+    <h3>📱 Scan to Vote</h3>
+    <canvas id="qrCanvas"></canvas>
+    <div class="qr-url" id="qrUrl"></div>
+    <button class="qr-close" onclick="closeQR()">Close</button>
+  </div>
+</div>
+
+<!-- TOC -->
+<button class="toc-toggle" onclick="toggleTOC()" title="Table of Contents">☰</button>
+<div class="toc-panel" id="tocPanel">
+  <h4>Sections</h4>
+  <button class="toc-item" onclick="goToSlide(0)">1. Title</button>
+  <button class="toc-item" onclick="goToSlide(1)">2. Why This Study Matters</button>
+  <button class="toc-item" onclick="goToSlide(2)">3. Study Design & Methods</button>
+  <button class="toc-item" onclick="goToSlide(3)">4. Outcomes & Measurement</button>
+  <button class="toc-item" onclick="goToSlide(4)">5. Statistical Analysis</button>
+  <button class="toc-item" onclick="goToSlide(5)">6. Baseline Characteristics</button>
+  <button class="toc-item" onclick="goToSlide(6)">7. Results — Think First</button>
+  <button class="toc-item" onclick="goToSlide(7)">8. Primary & Secondary Findings</button>
+  <button class="toc-item" onclick="goToSlide(8)">9. Interpreting the Data</button>
+  <button class="toc-item" onclick="goToSlide(9)">10. Limitations & Strengths</button>
+  <button class="toc-item" onclick="goToSlide(10)">11. Clinical Implications</button>
+  <button class="toc-item" onclick="goToSlide(11)">12. Wrap-Up & Take-Homes</button>
+</div>
+
+<div class="kbd-hint">
+  <kbd>←</kbd> <kbd>→</kbd> to navigate
+</div>
+
+<div class="slides-container">
+
+<!-- ============ SLIDE 1: TITLE ============ -->
+<div class="slide active" data-slide="0">
+  <div class="title-slide">
+    <div class="section-label" style="color:rgba(255,255,255,0.7)">JOURNAL CLUB — INTERACTIVE SESSION</div>
+    <h1>Anxiolytic Effects of Quetiapine and Lithium &amp; Anxiety as a Moderator of the Antidepressant Effect</h1>
+    <div class="author">PMID: 41762225</div>
+    <div class="author">Presented by Emilio Hospedales, MD — PGY-2</div>
+    <div class="pmid" style="margin-top:1.5rem;">Use ← → arrow keys or the buttons below to navigate.<br>Interactive questions throughout — participate!</div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 2: WHY THIS MATTERS ============ -->
+<div class="slide" data-slide="1">
+  <div class="card">
+    <div class="section-label">Clinical Rationale</div>
+    <h2>Why This Study Matters</h2>
+    <p>Depression is <strong>common, disabling, and costly</strong> — driving morbidity, functional impairment, relapse risk, and frequent health-system use.</p>
+
+    <div class="quiz-container">
+      <h3>Warm-Up Question</h3>
+      <p>What brain structure undergoes atrophy as a consequence of chronic depression?</p>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz1')">A. Hippocampus</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz1')">B. Amygdala</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz1')">C. Prefrontal cortex</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz1')">D. Cerebellum</button>
+      <div class="quiz-explanation" id="quiz1-explanation">
+        <strong>Answer: Hippocampus.</strong> Chronic depression is associated with hippocampal volume reduction, mediated by cortisol-related neurotoxicity and reduced BDNF-mediated neurogenesis. This is relevant because lithium has been shown to have neuroprotective and neurotrophic effects on the hippocampus.
+      </div>
+    </div>
+
+    <h3>The Evidence Gap</h3>
+    <ul>
+      <li>Prior trials and meta-analyses are <strong>inconsistent or hard to generalize</strong> (short follow-up, narrow samples, surrogate outcomes, or residual confounding)</li>
+      <li>Leaves uncertainty about <strong>real-world effectiveness</strong> and safety of augmentation strategies</li>
+    </ul>
+
+    <div class="highlight-box">
+      <strong>Core Question:</strong> Does adding quetiapine or lithium to antidepressants meaningfully improve patient-important outcomes in treatment-resistant depression? And does comorbid <strong>anxiety</strong> moderate the antidepressant effect?
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 3: STUDY DESIGN ============ -->
+<div class="slide" data-slide="2">
+  <div class="card">
+    <div class="section-label">Methodology</div>
+    <h2>Study Design &amp; Methods</h2>
+
+    <div class="quiz-container">
+      <h3>What type of study is this?</h3>
+      <p>Based on the title and abstract, what study design would you expect?</p>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz2')">A. Double-blind RCT</button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz2')">B. Re-analysis of an open-label randomized trial</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz2')">C. Retrospective cohort study</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz2')">D. Systematic review and meta-analysis</button>
+      <div class="quiz-explanation" id="quiz2-explanation">
+        <strong>Answer: Re-analysis of an open-label randomized trial.</strong> This is a secondary analysis of the LQD trial, which was an open-label, randomized controlled trial. The open-label design is important to keep in mind as a potential source of bias.
+      </div>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: Setting & Recruitment Details</div>
+      <div class="reveal-content">
+        <ul>
+          <li><strong>Setting:</strong> Multiple UK sites</li>
+          <li><strong>Population:</strong> Adults ≥18 years with treatment-resistant depression (TRD)</li>
+          <li><strong>TRD Definition:</strong> Failed to adequately respond to ≥2 antidepressant therapies in the current episode, each prescribed for ≥6 weeks at minimum therapeutic dose</li>
+          <li><strong>Exclusion:</strong> No history of lithium or quetiapine use</li>
+          <li><strong>Baseline requirement:</strong> HAM-D score ≥14</li>
+          <li><strong>Stratification by severity:</strong>
+            <ul>
+              <li>Moderate: HAM-D 14–18</li>
+              <li>Severe: HAM-D 19–22</li>
+              <li>Very severe: HAM-D &gt;23</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: Follow-Up Duration & Target Doses</div>
+      <div class="reveal-content">
+        <ul>
+          <li><strong>Follow-up:</strong> 52 weeks</li>
+          <li><strong>Lithium target:</strong> Plasma level 0.6–1.2 mEq/L</li>
+          <li><strong>Quetiapine target:</strong> 150–300 mg/day</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="discussion-prompt">
+      <h3>Discussion Point</h3>
+      <p>What are the <strong>advantages and disadvantages</strong> of an open-label design for this type of study? How might knowledge of treatment assignment affect outcomes in a depression trial?</p>
+      <div class="timer-widget">
+        <span class="timer-display" id="timer1">2:00</span>
+        <button class="timer-btn timer-start" onclick="startTimer('timer1', 120)">Start</button>
+        <button class="timer-btn timer-reset" onclick="resetTimer('timer1', 120)">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 4: OUTCOMES ============ -->
+<div class="slide" data-slide="3">
+  <div class="card">
+    <div class="section-label">Outcome Measurement</div>
+    <h2>Outcomes &amp; Measurement</h2>
+
+    <div class="quiz-container">
+      <h3>Outcome Measures</h3>
+      <p>Which scale was used as the primary depression outcome measure in this study?</p>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz3')">A. QIDS-SR (Quick Inventory of Depressive Symptomatology — Self Report)</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz3')">B. HAM-D (Hamilton Depression Rating Scale)</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz3')">C. PHQ-9</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz3')">D. MADRS</button>
+      <div class="quiz-explanation" id="quiz3-explanation">
+        <strong>Answer: QIDS-SR.</strong> The QIDS-SR was assessed weekly, which provides granular longitudinal data on depression symptoms. Note that this is a <em>self-report</em> measure — in an open-label trial, this means patients' expectations about their treatment could bias results. Time to all-cause treatment discontinuation was also assessed.
+      </div>
+    </div>
+
+    <h3>Anxiety Assessment</h3>
+    <div class="key-point">
+      <p><strong>Secondary outcome:</strong> Anxiety was assessed at baseline and at weeks 8, 26, and 52.</p>
+      <p><strong>Key question:</strong> Is anxiety a <em>mediator</em> of the antidepressant effects of lithium or quetiapine?</p>
+    </div>
+
+    <div class="discussion-prompt">
+      <h3>Quick Poll</h3>
+      <p>Before we see the results — what is your clinical intuition?</p>
+    </div>
+
+    <div class="poll-container" id="poll1-live">
+      <h3>Which medication do you think had a greater anxiolytic effect? <span class="live-badge">LIVE</span></h3>
+      <button class="open-poll-btn" onclick="showQR('poll1')">📱 Show QR Code for Audience</button>
+      <div class="poll-bar-container" id="poll1-results" style="display:block;">
+        <div class="poll-bar-row"><span class="poll-bar-label">Lithium</span><div class="poll-bar-track"><div class="poll-bar-fill" data-pct="0" id="poll1-bar-0"></div></div><span class="poll-bar-pct" id="poll1-pct-0">0%</span></div>
+        <div class="poll-bar-row"><span class="poll-bar-label">Quetiapine</span><div class="poll-bar-track"><div class="poll-bar-fill" data-pct="0" id="poll1-bar-1"></div></div><span class="poll-bar-pct" id="poll1-pct-1">0%</span></div>
+        <div class="poll-bar-row"><span class="poll-bar-label">No difference</span><div class="poll-bar-track"><div class="poll-bar-fill" data-pct="0" id="poll1-bar-2"></div></div><span class="poll-bar-pct" id="poll1-pct-2">0%</span></div>
+        <div class="poll-bar-row"><span class="poll-bar-label">Neither</span><div class="poll-bar-track"><div class="poll-bar-fill" data-pct="0" id="poll1-bar-3"></div></div><span class="poll-bar-pct" id="poll1-pct-3">0%</span></div>
+      </div>
+      <div class="vote-count" id="poll1-count">0 votes</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 5: STATISTICAL ANALYSIS ============ -->
+<div class="slide" data-slide="4">
+  <div class="card">
+    <div class="section-label">Analytic Strategy</div>
+    <h2>Statistical Analysis</h2>
+    <p>All analyses were conducted as <strong>intention to treat (ITT)</strong>. The statistical analysis plan for this secondary investigation was <strong>preregistered on the Open Science Framework</strong> (<a href="https://osf.io/dwsry" target="_blank" rel="noopener">osf.io/dwsry</a>) before the primary author had access to trial data.</p>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: 1) Sample Size & Analysis Population</div>
+      <div class="reveal-content">
+        <ul>
+          <li><strong>N = 212</strong> participants randomized 1:1 (lithium vs quetiapine)</li>
+          <li><strong>ITT analysis</strong> — all randomized participants included</li>
+          <li>Randomization stratified by: <strong>site</strong> (London, Oxfordshire, NE England, Bristol, Brighton), <strong>TRD severity</strong> (failed 2 vs ≥3 antidepressants), and <strong>baseline depression severity</strong> (HAMD-17: moderate 14–18, severe 19–22, very severe ≥23)</li>
+          <li>Anxiety subgroups by baseline GAD-7: <strong>mild</strong> (≤10, n=76, 35.9%), <strong>moderate</strong> (11–15, n=63, 29.7%), <strong>severe</strong> (≥16, n=73, 34.4%)</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Note:</strong> With only 63–76 per anxiety subgroup, individual subgroup analyses are likely underpowered to detect moderate effect sizes.
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: 2) Primary Models — Anxiolysis (Question 1)</div>
+      <div class="reveal-content">
+        <p><strong>Model 1 — Is quetiapine superior at reducing anxiety?</strong></p>
+        <ul>
+          <li><strong>Linear mixed models</strong> examining GAD-7 scores at 8, 26, and 52 weeks</li>
+          <li>Adjusted for <strong>baseline GAD-7</strong> and stratification variables (TRD severity, depression severity, site)</li>
+          <li>Time fitted <strong>categorically</strong> using dummy variables for each week</li>
+          <li>Explanatory variables: <strong>treatment, time, and time × treatment interaction</strong> (to extract effects at different time points)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: 3) Moderation Model (Question 2)</div>
+      <div class="reveal-content">
+        <p><strong>Model 2 — Does baseline anxiety moderate the antidepressant effect?</strong></p>
+        <ul>
+          <li>Repeated the primary LQD trial analysis with an added <strong>time × treatment × baseline anxiety three-way interaction term</strong></li>
+          <li>Linear mixed models conditioned on <strong>baseline QIDS depression</strong> and stratification variables</li>
+          <li>Time fitted as a <strong>continuous variable</strong></li>
+          <li><strong>Random intercepts and random slopes</strong> over time for individuals (accounts for repeated measures)</li>
+          <li>Quetiapine vs lithium differences estimated separately for each of 3 baseline anxiety levels at each weekly time point</li>
+          <li><strong>Area under the difference curve (AUC)</strong> calculated by integrating weekly differences using the <strong>trapezoid rule</strong> over 52 weeks</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: 4) Planned Mediation Analysis (Question 3)</div>
+      <div class="reveal-content">
+        <p><strong>Model 3 — Does anxiety reduction mediate the antidepressant effect?</strong></p>
+        <ul>
+          <li>Originally planned: <strong>structural equation modeling (SEM)</strong> to examine if treatment → reduced anxiety → reduced depression</li>
+          <li>Initially <strong>not performed</strong> because no difference in anxiety between arms was found (the proposed mediation path was broken)</li>
+          <li>Run at reviewer request: simple SEM examining path to depression at 26 and 52 weeks through treatment effects on anxiety</li>
+          <li>Result: <strong>No significant mediation</strong> at 26 weeks (p = 0.27) or 52 weeks (p = 0.56)</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Implication:</strong> The antidepressant superiority of quetiapine in anxious patients is unlikely to be mediated by anxiolysis itself — the mechanism remains unclear. It may reflect a distinct depression subtype (e.g., agitated/mixed features) that responds preferentially to atypical antipsychotics.
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-container">
+      <h3>Test Your Stats Knowledge</h3>
+      <p>This study used the <strong>trapezoid rule</strong> to calculate AUC of treatment differences. Why is AUC a useful summary measure for comparing two treatments across 52 weeks?</p>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz4')">A. It only captures the endpoint difference</button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz4')">B. It captures the cumulative treatment difference over the entire follow-up period, not just a single time point</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz4')">C. It eliminates the need for statistical modeling</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz4')">D. It automatically adjusts for missing data</button>
+      <div class="quiz-explanation" id="quiz4-explanation">
+        <strong>Answer: B.</strong> AUC integrates treatment differences across all weekly time points, capturing the <em>total symptom burden difference</em> over 52 weeks rather than relying on a single endpoint comparison. A treatment could show a large early effect that fades, or a slow-building effect — AUC captures both patterns. In this study, AUC was derived from a linear mixed model with random intercepts and slopes, which handles missing data under MAR assumptions without requiring listwise deletion.
+      </div>
+    </div>
+
+    <div class="quiz-container">
+      <h3>Bonus: Moderation vs Mediation</h3>
+      <p>The study found that anxiety <strong>moderates</strong> but does <strong>not mediate</strong> the antidepressant effect. What is the difference?</p>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz4b')">A. They are the same thing</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz4b')">B. A moderator is always a confounder</button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz4b')">C. A moderator changes the strength/direction of the effect; a mediator is the mechanism through which it works</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz4b')">D. A mediator must be measured at baseline</button>
+      <div class="quiz-explanation" id="quiz4b-explanation">
+        <strong>Answer: C.</strong> <strong>Moderator</strong> = baseline anxiety level changes <em>how strongly</em> quetiapine outperforms lithium (interaction). <strong>Mediator</strong> = reduction in anxiety would be the <em>mechanism</em> through which quetiapine reduces depression more than lithium (causal path). Here, SEM showed no mediation — quetiapine's antidepressant advantage in anxious patients does not appear to operate <em>through</em> anxiety reduction, even though higher baseline anxiety <em>predicts</em> a larger quetiapine advantage.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 6: BASELINE CHARACTERISTICS ============ -->
+<div class="slide" data-slide="5">
+  <div class="card">
+    <div class="section-label">Baseline Data</div>
+    <h2>Sociodemographic &amp; Clinical Characteristics at Baseline</h2>
+
+    <p>Examining whether randomization produced comparable groups is a critical first step in evaluating any RCT.</p>
+
+    <div class="figure-container">
+      <img src="images/image24.png" alt="Table 1 - Baseline demographic characteristics" onclick="openLightbox(this.src)">
+      <div class="figure-caption">Table 1: Baseline demographic characteristics (click to enlarge)</div>
+    </div>
+
+    <div class="figure-container">
+      <img src="images/image25.png" alt="Table - Baseline clinical characteristics" onclick="openLightbox(this.src)">
+      <div class="figure-caption">Baseline clinical characteristics (click to enlarge)</div>
+    </div>
+
+    <div class="figure-container">
+      <img src="images/image26.png" alt="Table - Additional baseline data" onclick="openLightbox(this.src)">
+      <div class="figure-caption">Additional baseline data (click to enlarge)</div>
+    </div>
+
+    <div class="discussion-prompt">
+      <h3>Group Discussion</h3>
+      <p>Looking at the baseline tables: Are there any <strong>clinically meaningful imbalances</strong> between groups that could confound the results, even if they are not statistically significant?</p>
+      <div class="timer-widget">
+        <span class="timer-display" id="timer2">2:00</span>
+        <button class="timer-btn timer-start" onclick="startTimer('timer2', 120)">Start</button>
+        <button class="timer-btn timer-reset" onclick="resetTimer('timer2', 120)">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 7: RESULTS PREDICTION ============ -->
+<div class="slide" data-slide="6">
+  <div class="section-divider">
+    <div class="section-label" style="color:rgba(255,255,255,0.7)">RESULTS SECTION</div>
+    <h2>Before We Look at Results...</h2>
+    <p>Let's make predictions first</p>
+  </div>
+
+  <div class="card accent">
+    <h2>Think-Pair-Share</h2>
+    <p>Before revealing the results, take 2 minutes to discuss with a partner:</p>
+
+    <div class="poll-container" id="poll2-live">
+      <h3>In patients with severe anxiety + TRD, which augmentation strategy would you predict to be more effective for depression? <span class="live-badge">LIVE</span></h3>
+      <button class="open-poll-btn" onclick="showQR('poll2')">📱 Show QR Code for Audience</button>
+      <div class="poll-bar-container" id="poll2-results" style="display:block;">
+        <div class="poll-bar-row"><span class="poll-bar-label">Quetiapine</span><div class="poll-bar-track"><div class="poll-bar-fill" data-pct="0" id="poll2-bar-0"></div></div><span class="poll-bar-pct" id="poll2-pct-0">0%</span></div>
+        <div class="poll-bar-row"><span class="poll-bar-label">Lithium</span><div class="poll-bar-track"><div class="poll-bar-fill" data-pct="0" id="poll2-bar-1"></div></div><span class="poll-bar-pct" id="poll2-pct-1">0%</span></div>
+        <div class="poll-bar-row"><span class="poll-bar-label">No difference</span><div class="poll-bar-track"><div class="poll-bar-fill" data-pct="0" id="poll2-bar-2"></div></div><span class="poll-bar-pct" id="poll2-pct-2">0%</span></div>
+      </div>
+      <div class="vote-count" id="poll2-count">0 votes</div>
+    </div>
+
+    <div class="timer-widget">
+      <span class="timer-display" id="timer3">2:00</span>
+      <button class="timer-btn timer-start" onclick="startTimer('timer3', 120)">Start</button>
+      <button class="timer-btn timer-reset" onclick="resetTimer('timer3', 120)">Reset</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 8: PRIMARY & SECONDARY FINDINGS ============ -->
+<div class="slide" data-slide="7">
+  <div class="card">
+    <div class="section-label">Results</div>
+    <h2>Primary &amp; Secondary Findings</h2>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: Mean Drug Dosing</div>
+      <div class="reveal-content">
+        <ul>
+          <li><strong>Lithium:</strong> Mean dose 681.3 mg</li>
+          <li><strong>Quetiapine:</strong> Mean dose 194.7 mg</li>
+        </ul>
+        <p><em>Adherence:</em> No significant differences between groups.</p>
+      </div>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: Effects on Anxiety</div>
+      <div class="reveal-content">
+        <p><strong>Whole sample:</strong> Anxiety scores reduced from week 0 to week 8, but <strong>did not change significantly</strong> from week 8 to 26 or 26 to 52.</p>
+        <p><strong>Difference between drugs:</strong> Little to no difference in anxiolytic effect of quetiapine vs lithium at 8 weeks or 52 weeks.</p>
+      </div>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: Anxiety as a Moderator of Antidepressant Effect</div>
+      <div class="reveal-content">
+        <div class="highlight-box">
+          <strong>Key Finding:</strong> Across all baseline anxiety groups combined, participants taking quetiapine had <strong>lower depression symptoms</strong> over the 52-week period than those taking lithium (95% CI −9.8 to −133.5, <strong>p = 0.023</strong>).
+        </div>
+        <p><strong>However, by anxiety subgroup:</strong></p>
+        <ul>
+          <li><strong>Moderate anxiety:</strong> AUC −79.7 (95% CI 34.8 to −194.2), p = 0.17 — <em>not significant</em></li>
+          <li><strong>Mild anxiety:</strong> AUC 29.7 (95% CI 73.4 to −132.8), p = 0.57 — <em>not significant</em></li>
+        </ul>
+        <p>This suggests the overall quetiapine advantage may be <strong>driven primarily by those with severe baseline anxiety</strong>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 9: INTERPRETING THE DATA ============ -->
+<div class="slide" data-slide="8">
+  <div class="card accent">
+    <div class="section-label">Critical Appraisal</div>
+    <h2>Interpreting the Data</h2>
+
+    <div class="quiz-container">
+      <h3>Critical Thinking Question</h3>
+      <p>The overall analysis shows quetiapine is superior to lithium (p=0.023), but the subgroup analyses by anxiety severity are not significant. What is the best interpretation?</p>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz5')">A. The overall result is a false positive</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz5')">B. The subgroup analyses prove there is no real difference</button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz5')">C. The subgroup analyses are likely underpowered; the overall effect may be real but heterogeneous</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz5')">D. The p-value of 0.023 proves quetiapine is clinically superior</button>
+      <div class="quiz-explanation" id="quiz5-explanation">
+        <strong>Answer: C.</strong> Subgroup analyses divide the sample and reduce statistical power. A non-significant subgroup result does not mean "no effect" — it means the study was <em>unable to detect</em> an effect in that subgroup. The overall effect may be genuine but driven primarily by the severe anxiety group. This is an important distinction between <strong>"absence of evidence"</strong> and <strong>"evidence of absence."</strong>
+      </div>
+    </div>
+
+    <div class="discussion-prompt">
+      <h3>Clinical Reasoning</h3>
+      <p>A patient with TRD and <strong>severe comorbid anxiety</strong> has failed two adequate antidepressant trials. Based on this study, how would you approach the augmentation decision between quetiapine and lithium? What factors beyond this study would influence your choice?</p>
+      <div class="timer-widget">
+        <span class="timer-display" id="timer4">3:00</span>
+        <button class="timer-btn timer-start" onclick="startTimer('timer4', 180)">Start</button>
+        <button class="timer-btn timer-reset" onclick="resetTimer('timer4', 180)">Reset</button>
+      </div>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click for discussion framework</div>
+      <div class="reveal-content">
+        <h3>Factors to Consider:</h3>
+        <ul>
+          <li><strong>Side effect profile:</strong> Quetiapine (metabolic, sedation, QTc) vs Lithium (renal, thyroid, narrow therapeutic index, teratogenicity)</li>
+          <li><strong>Monitoring burden:</strong> Lithium requires serum levels, renal/thyroid monitoring</li>
+          <li><strong>Patient preferences:</strong> sedation may be wanted or unwanted</li>
+          <li><strong>Comorbidities:</strong> renal disease, obesity, diabetes</li>
+          <li><strong>Suicidality:</strong> Lithium has unique anti-suicidal evidence</li>
+          <li><strong>Pregnancy planning:</strong> both have concerns but different risk profiles</li>
+          <li><strong>Cost and access</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 10: LIMITATIONS & STRENGTHS ============ -->
+<div class="slide" data-slide="9">
+  <div class="card">
+    <div class="section-label">Critical Appraisal</div>
+    <h2>Strengths &amp; Limitations</h2>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: Major Strengths</div>
+      <div class="reveal-content">
+        <ul>
+          <li>Rigorous randomized design</li>
+          <li>Long follow-up (52 weeks) — much longer than most augmentation trials</li>
+          <li>Validated outcome measures (QIDS-SR)</li>
+          <li>High follow-up rates supporting internal validity</li>
+          <li>Pragmatic multi-site design enhances generalizability</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: Key Limitations (Bias)</div>
+      <div class="reveal-content">
+        <ul>
+          <li><strong>Open-label design:</strong> Knowledge of treatment assignment can influence both patient-reported outcomes and clinician behavior</li>
+          <li><strong>Self-report outcome:</strong> QIDS-SR may be influenced by expectations</li>
+          <li><strong>Post-hoc analysis:</strong> The anxiety moderation analysis may not have been pre-specified</li>
+          <li><strong>Subgroup power:</strong> Individual anxiety severity subgroups likely underpowered</li>
+          <li><strong>Multiple comparisons:</strong> Increased risk of false positive findings</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quiz-container">
+      <h3>Bias Check</h3>
+      <p>In an open-label trial using a self-report depression measure, which bias is MOST concerning?</p>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz6')">A. Selection bias</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz6')">B. Attrition bias</button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz6')">C. Performance/detection bias (placebo effect and reporting bias)</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz6')">D. Publication bias</button>
+      <div class="quiz-explanation" id="quiz6-explanation">
+        <strong>Answer: C. Performance/detection bias.</strong> When patients know they are receiving a medication with known sedative/anxiolytic properties (quetiapine), they may report greater symptom improvement than if they were blinded. Similarly, clinicians aware of treatment assignment may assess or manage patients differently. This combined with a self-report outcome measure creates significant risk of inflated treatment effects.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 11: CLINICAL IMPLICATIONS ============ -->
+<div class="slide" data-slide="10">
+  <div class="card success">
+    <div class="section-label">Practice Application</div>
+    <h2>Clinical Implications</h2>
+
+    <h3>External Validity (Real-World Fit)</h3>
+    <p>Applicability depends on feasibility (cost, monitoring burden) and patient preferences; population differences can shift benefit and tolerability.</p>
+
+    <div class="poll-container" id="poll3-live">
+      <h3>After reviewing this study, how will it change your practice? <span class="live-badge">LIVE</span></h3>
+      <button class="open-poll-btn" onclick="showQR('poll3')">📱 Show QR Code for Audience</button>
+      <div class="poll-bar-container" id="poll3-results" style="display:block;">
+        <div class="poll-bar-row"><span class="poll-bar-label">Prefer quetiapine for anxious TRD</span><div class="poll-bar-track"><div class="poll-bar-fill" data-pct="0" id="poll3-bar-0"></div></div><span class="poll-bar-pct" id="poll3-pct-0">0%</span></div>
+        <div class="poll-bar-row"><span class="poll-bar-label">Continue individualizing</span><div class="poll-bar-track"><div class="poll-bar-fill" data-pct="0" id="poll3-bar-1"></div></div><span class="poll-bar-pct" id="poll3-pct-1">0%</span></div>
+        <div class="poll-bar-row"><span class="poll-bar-label">Consider anxiety severity more</span><div class="poll-bar-track"><div class="poll-bar-fill" data-pct="0" id="poll3-bar-2"></div></div><span class="poll-bar-pct" id="poll3-pct-2">0%</span></div>
+        <div class="poll-bar-row"><span class="poll-bar-label">No change</span><div class="poll-bar-track"><div class="poll-bar-fill" data-pct="0" id="poll3-bar-3"></div></div><span class="poll-bar-pct" id="poll3-pct-3">0%</span></div>
+      </div>
+      <div class="vote-count" id="poll3-count">0 votes</div>
+    </div>
+
+    <div class="discussion-prompt">
+      <h3>Table Discussion</h3>
+      <p>What <strong>gaps remain</strong> that future research should address? What study design would you want to see to definitively answer the moderation question?</p>
+      <div class="timer-widget">
+        <span class="timer-display" id="timer5">3:00</span>
+        <button class="timer-btn timer-start" onclick="startTimer('timer5', 180)">Start</button>
+        <button class="timer-btn timer-reset" onclick="resetTimer('timer5', 180)">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 12: WRAP-UP ============ -->
+<div class="slide" data-slide="11">
+  <div class="card">
+    <div class="section-label">Summary</div>
+    <h2>Take-Home Messages</h2>
+
+    <div class="key-point">
+      <h3>1. Both medications reduce anxiety similarly</h3>
+      <p>Neither quetiapine nor lithium demonstrated a clear anxiolytic advantage — anxiety scores improved early (by week 8) in both groups and then plateaued.</p>
+    </div>
+
+    <div class="key-point" style="border-left-color: var(--accent);">
+      <h3>2. Quetiapine showed modest overall antidepressant advantage</h3>
+      <p>Over 52 weeks, quetiapine-augmented patients had lower depression symptom burden than lithium-augmented patients (p = 0.023), but this was an open-label trial with self-report outcomes.</p>
+    </div>
+
+    <div class="key-point" style="border-left-color: var(--success);">
+      <h3>3. Anxiety severity may moderate the antidepressant effect</h3>
+      <p>The quetiapine advantage appeared driven by patients with severe baseline anxiety. Those with mild-moderate anxiety showed no significant difference.</p>
+    </div>
+
+    <div class="key-point" style="border-left-color: var(--danger);">
+      <h3>4. Important caveats require cautious interpretation</h3>
+      <p>Open-label design, self-report primary outcome, and potentially underpowered subgroup analyses all warrant <strong>moderate confidence</strong> in these findings.</p>
+    </div>
+
+    <div class="highlight-box">
+      <strong>Bottom Line:</strong> Consider targeted use in psychiatry practice, but prioritize <strong>shared decision-making</strong> and recognize study gaps. For TRD patients with severe comorbid anxiety, quetiapine may offer additional benefit, but lithium's unique anti-suicidal properties, neuroprotective effects, and long track record should be weighed in clinical decisions.
+    </div>
+
+    <div class="quiz-container">
+      <h3>Final Check — Did You Learn?</h3>
+      <p>A 45-year-old with TRD (failed 3 antidepressants), severe generalized anxiety, BMI 32, and pre-diabetes asks you about augmentation. Based on this study AND clinical judgment, what is your best next step?</p>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz7')">A. Start quetiapine — this study shows it is clearly superior</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz7')">B. Start lithium — it has the strongest evidence base overall</button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz7')">C. Discuss both options, noting quetiapine's potential anxiety benefit but metabolic risks given the patient's BMI and pre-diabetes</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz7')">D. Neither — add a benzodiazepine instead</button>
+      <div class="quiz-explanation" id="quiz7-explanation">
+        <strong>Answer: C.</strong> This is a nuanced clinical decision. While this study suggests quetiapine may be more effective for depression in patients with severe anxiety, the patient's metabolic profile (BMI 32, pre-diabetes) is a strong concern with quetiapine. Shared decision-making involves discussing:
+        <ul style="margin-top:0.5rem;">
+          <li>Potential benefit of quetiapine for anxiety moderation</li>
+          <li>Metabolic risks of quetiapine in this patient</li>
+          <li>Lithium's different side effect profile and anti-suicidal benefits</li>
+          <li>Patient preferences and values</li>
+        </ul>
+        <strong>Evidence-based medicine = best evidence + clinical expertise + patient values.</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="text-align:center; border-left-color: var(--accent);">
+    <h2>Thank You!</h2>
+    <p><strong>Presented by:</strong> Emilio Hospedales, MD — PGY-2</p>
+    <p>PMID: 41762225</p>
+    <p style="margin-top:1rem; color: var(--text-light);">Questions? Discussion?</p>
+  </div>
+</div>
+
+<!-- Navigation Buttons -->
+<div class="nav-buttons">
+  <button class="nav-btn prev" id="prevBtn" onclick="changeSlide(-1)" disabled>← Previous</button>
+  <span class="slide-counter" id="slideCounter">1 / 12</span>
+  <button class="nav-btn next" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+</div>
+
+</div><!-- slides-container -->
+
+<script>
+  // Slide navigation
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+
+  function showSlide(index) {
+    slides.forEach(s => s.classList.remove('active'));
+    slides[index].classList.add('active');
+    currentSlide = index;
+    updateUI();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function changeSlide(dir) {
+    const next = currentSlide + dir;
+    if (next >= 0 && next < totalSlides) showSlide(next);
+  }
+
+  function goToSlide(index) {
+    showSlide(index);
+    document.getElementById('tocPanel').classList.remove('open');
+  }
+
+  function updateUI() {
+    document.getElementById('prevBtn').disabled = currentSlide === 0;
+    document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+    document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+    document.getElementById('progressInfo').textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+    const pct = ((currentSlide + 1) / totalSlides) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+
+    // Update TOC
+    document.querySelectorAll('.toc-item').forEach((item, i) => {
+      item.classList.toggle('current', i === currentSlide);
+    });
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); }
+  });
+
+  // Touch swipe support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 60) changeSlide(diff > 0 ? 1 : -1);
+  });
+
+  // Reveal boxes
+  function toggleReveal(el) {
+    el.classList.toggle('revealed');
+  }
+
+  // Quiz
+  function checkQuiz(btn, correct, quizId) {
+    const container = btn.closest('.quiz-container');
+    const options = container.querySelectorAll('.quiz-option');
+    options.forEach(opt => {
+      opt.classList.add('disabled');
+      if (opt === btn) {
+        opt.classList.add(correct ? 'correct' : 'incorrect');
+      }
+      // Show the correct answer
+      if (!correct) {
+        options.forEach(o => {
+          // Find the correct one by checking the onclick
+          if (o.getAttribute('onclick') && o.getAttribute('onclick').includes('true')) {
+            o.classList.add('correct');
+          }
+        });
+      }
+    });
+    const explanation = document.getElementById(quizId + '-explanation');
+    if (explanation) explanation.style.display = 'block';
+  }
+
+  // Timers
+  const timers = {};
+  function startTimer(id, totalSeconds) {
+    if (timers[id] && timers[id].running) return;
+    const display = document.getElementById(id);
+    let remaining = timers[id] ? timers[id].remaining : totalSeconds;
+    timers[id] = { remaining, running: true };
+
+    timers[id].interval = setInterval(() => {
+      remaining--;
+      timers[id].remaining = remaining;
+      const min = Math.floor(remaining / 60);
+      const sec = remaining % 60;
+      display.textContent = `${min}:${sec.toString().padStart(2, '0')}`;
+
+      if (remaining <= 10) display.style.color = '#e53e3e';
+      if (remaining <= 0) {
+        clearInterval(timers[id].interval);
+        timers[id].running = false;
+        display.textContent = "0:00";
+        display.style.color = '#e53e3e';
+        // Flash effect
+        display.style.animation = 'none';
+        display.offsetHeight;
+      }
+    }, 1000);
+  }
+
+  function resetTimer(id, totalSeconds) {
+    if (timers[id] && timers[id].interval) clearInterval(timers[id].interval);
+    timers[id] = { remaining: totalSeconds, running: false };
+    const display = document.getElementById(id);
+    const min = Math.floor(totalSeconds / 60);
+    const sec = totalSeconds % 60;
+    display.textContent = `${min}:${sec.toString().padStart(2, '0')}`;
+    display.style.color = 'var(--primary)';
+  }
+
+  // ============================================================
+  // ⚠️  REPLACE THESE WITH YOUR SUPABASE CREDENTIALS
+  // ============================================================
+  const SUPABASE_URL = 'https://tggeaxmdhjtlfrhlpvkv.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRnZ2VheG1kaGp0bGZyaGxwdmt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2OTI2NDUsImV4cCI6MjA4OTI2ODY0NX0.z-FbnabwvNzWBnoF7n4ilz1XRyXncm2teYPNQmK9sVU';
+  // ============================================================
+
+  // Poll option counts for each poll
+  const pollConfig = {
+    poll1: { options: 4, labels: ['Lithium','Quetiapine','No difference','Neither'] },
+    poll2: { options: 3, labels: ['Quetiapine','Lithium','No difference'] },
+    poll3: { options: 4, labels: ['Prefer quetiapine for anxious TRD','Continue individualizing','Consider anxiety severity more','No change'] }
+  };
+
+  // Supabase live polls
+  let sb = null;
+  if (SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+    sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Load initial vote counts
+    async function loadPollResults() {
+      for (const pollId of Object.keys(pollConfig)) {
+        const { data } = await sb.from('poll_votes').select('option_index').eq('poll_id', pollId);
+        if (data) updatePollBars(pollId, data);
+      }
+    }
+
+    // Subscribe to realtime inserts
+    sb.channel('poll-votes')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'poll_votes' }, payload => {
+        const pollId = payload.new.poll_id;
+        if (pollConfig[pollId]) refreshPoll(pollId);
+      })
+      .subscribe();
+
+    async function refreshPoll(pollId) {
+      const { data } = await sb.from('poll_votes').select('option_index').eq('poll_id', pollId);
+      if (data) updatePollBars(pollId, data);
+    }
+
+    function updatePollBars(pollId, votes) {
+      const config = pollConfig[pollId];
+      const counts = new Array(config.options).fill(0);
+      votes.forEach(v => { if (v.option_index < counts.length) counts[v.option_index]++; });
+      const total = votes.length;
+
+      for (let i = 0; i < config.options; i++) {
+        const pct = total > 0 ? Math.round((counts[i] / total) * 100) : 0;
+        const bar = document.getElementById(`${pollId}-bar-${i}`);
+        const pctEl = document.getElementById(`${pollId}-pct-${i}`);
+        if (bar) { bar.dataset.pct = pct; bar.style.width = pct + '%'; }
+        if (pctEl) pctEl.textContent = pct + '%';
+      }
+      const countEl = document.getElementById(`${pollId}-count`);
+      if (countEl) countEl.textContent = total + (total === 1 ? ' vote' : ' votes');
+    }
+
+    loadPollResults();
+  }
+
+  // QR Code
+  function getVoteUrl() {
+    // Use same origin as the presenter page
+    const base = window.location.href.replace(/\/[^/]*$/, '/');
+    return base + 'vote.html';
+  }
+
+  function showQR(pollId) {
+    const url = getVoteUrl();
+    const modal = document.getElementById('qrModal');
+    const canvas = document.getElementById('qrCanvas');
+    const urlDisplay = document.getElementById('qrUrl');
+    urlDisplay.textContent = url;
+    modal.classList.add('open');
+    QRCode.toCanvas(canvas, url, { width: 280, margin: 2, color: { dark: '#1a365d' } });
+  }
+
+  function closeQR(e) {
+    if (e && e.target !== document.getElementById('qrModal') && !e.target.classList.contains('qr-close')) return;
+    document.getElementById('qrModal').classList.remove('open');
+  }
+
+  // TOC
+  function toggleTOC() {
+    document.getElementById('tocPanel').classList.toggle('open');
+  }
+
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // Initial UI
+  updateUI();
+</script>
+
+</body>
+</html>

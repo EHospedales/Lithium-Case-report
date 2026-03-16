@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vote — Journal Club</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+  :root {
+    --primary: #1a365d;
+    --secondary: #2b6cb0;
+    --success: #38a169;
+    --bg: #f7fafc;
+    --card: #ffffff;
+    --text: #2d3748;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+  .header {
+    text-align: center;
+    padding: 1.5rem 1rem 1rem;
+    width: 100%;
+    max-width: 480px;
+  }
+  .header h1 { font-size: 1.3rem; color: var(--primary); }
+  .header p { font-size: 0.85rem; color: #718096; margin-top: 0.25rem; }
+
+  .poll-card {
+    background: var(--card);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+    margin: 0.75rem 0;
+    width: 100%;
+    max-width: 480px;
+  }
+  .poll-card.voted { opacity: 0.7; }
+  .poll-card h2 {
+    font-size: 1.05rem;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+  }
+  .poll-card .poll-question {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    color: #4a5568;
+  }
+  .vote-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.85rem 1rem;
+    margin: 0.5rem 0;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    color: var(--text);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .vote-btn:active { transform: scale(0.98); }
+  .vote-btn:hover { border-color: var(--secondary); background: #ebf8ff; }
+  .vote-btn.selected {
+    border-color: var(--success);
+    background: #f0fff4;
+    color: var(--success);
+    font-weight: 600;
+  }
+  .vote-btn.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  .voted-msg {
+    display: none;
+    text-align: center;
+    padding: 0.75rem;
+    background: #f0fff4;
+    border-radius: 10px;
+    color: var(--success);
+    font-weight: 600;
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+  }
+  .voted-msg.show { display: block; }
+  .poll-number {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #a0aec0;
+    font-weight: 600;
+  }
+  .error-msg {
+    color: #e53e3e;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+  .connection-status {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 0.4rem;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 100;
+    transition: transform 0.3s;
+    transform: translateY(-100%);
+  }
+  .connection-status.connected {
+    background: #c6f6d5;
+    color: #276749;
+    transform: translateY(0);
+    animation: fadeUp 2s forwards;
+  }
+  .connection-status.error {
+    background: #fed7d7;
+    color: #9b2c2c;
+    transform: translateY(0);
+  }
+  @keyframes fadeUp {
+    0%, 70% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+  }
+</style>
+</head>
+<body>
+
+<div class="connection-status" id="connStatus"></div>
+
+<div class="header">
+  <h1>Journal Club Live Poll</h1>
+  <p>Quetiapine &amp; Lithium in TRD</p>
+</div>
+
+<!-- Poll 1 -->
+<div class="poll-card" id="poll1-card">
+  <span class="poll-number">Poll 1 of 3</span>
+  <h2>Anxiolytic Effect</h2>
+  <p class="poll-question">Which medication do you think had a greater anxiolytic effect?</p>
+  <button class="vote-btn" onclick="vote('poll1', 0, this)">Lithium had greater anxiolytic effect</button>
+  <button class="vote-btn" onclick="vote('poll1', 1, this)">Quetiapine had greater anxiolytic effect</button>
+  <button class="vote-btn" onclick="vote('poll1', 2, this)">No significant difference</button>
+  <button class="vote-btn" onclick="vote('poll1', 3, this)">Neither had meaningful anxiolytic effect</button>
+  <div class="voted-msg" id="poll1-voted">✓ Vote recorded!</div>
+</div>
+
+<!-- Poll 2 -->
+<div class="poll-card" id="poll2-card">
+  <span class="poll-number">Poll 2 of 3</span>
+  <h2>Predicting Results</h2>
+  <p class="poll-question">In patients with severe anxiety + TRD, which augmentation strategy would you predict to be more effective for depression?</p>
+  <button class="vote-btn" onclick="vote('poll2', 0, this)">Quetiapine — direct anxiolytic and sedating properties</button>
+  <button class="vote-btn" onclick="vote('poll2', 1, this)">Lithium — broader mood-stabilizing effects</button>
+  <button class="vote-btn" onclick="vote('poll2', 2, this)">No difference — anxiety shouldn't moderate the effect</button>
+  <div class="voted-msg" id="poll2-voted">✓ Vote recorded!</div>
+</div>
+
+<!-- Poll 3 -->
+<div class="poll-card" id="poll3-card">
+  <span class="poll-number">Poll 3 of 3</span>
+  <h2>Practice Change</h2>
+  <p class="poll-question">After reviewing this study, how will it change your practice?</p>
+  <button class="vote-btn" onclick="vote('poll3', 0, this)">Preferentially choose quetiapine for TRD with severe anxiety</button>
+  <button class="vote-btn" onclick="vote('poll3', 1, this)">Continue to individualize — insufficient to change practice</button>
+  <button class="vote-btn" onclick="vote('poll3', 2, this)">More strongly consider anxiety severity when choosing</button>
+  <button class="vote-btn" onclick="vote('poll3', 3, this)">Doesn't change my practice at all</button>
+  <div class="voted-msg" id="poll3-voted">✓ Vote recorded!</div>
+</div>
+
+<script>
+// ============================================================
+// ⚠️  REPLACE THESE WITH YOUR SUPABASE CREDENTIALS
+// ============================================================
+const SUPABASE_URL = 'https://tggeaxmdhjtlfrhlpvkv.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRnZ2VheG1kaGp0bGZyaGxwdmt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2OTI2NDUsImV4cCI6MjA4OTI2ODY0NX0.z-FbnabwvNzWBnoF7n4ilz1XRyXncm2teYPNQmK9sVU';
+// ============================================================
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Generate a persistent voter ID per browser
+function getVoterId() {
+  let id = localStorage.getItem('poll_voter_id');
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem('poll_voter_id', id);
+  }
+  return id;
+}
+const voterId = getVoterId();
+
+// Check for previous votes on page load
+async function checkExistingVotes() {
+  const { data } = await supabase
+    .from('poll_votes')
+    .select('poll_id, option_index')
+    .eq('voter_id', voterId);
+
+  if (data) {
+    data.forEach(v => markAsVoted(v.poll_id, v.option_index));
+  }
+}
+
+function markAsVoted(pollId, optionIndex) {
+  const card = document.getElementById(pollId + '-card');
+  if (!card) return;
+  card.classList.add('voted');
+  const buttons = card.querySelectorAll('.vote-btn');
+  buttons.forEach((btn, i) => {
+    btn.classList.add('disabled');
+    if (i === optionIndex) btn.classList.add('selected');
+  });
+  document.getElementById(pollId + '-voted').classList.add('show');
+}
+
+async function vote(pollId, optionIndex, btn) {
+  // Disable all buttons immediately
+  const card = document.getElementById(pollId + '-card');
+  const buttons = card.querySelectorAll('.vote-btn');
+  buttons.forEach(b => b.classList.add('disabled'));
+  btn.classList.add('selected');
+
+  const { error } = await supabase
+    .from('poll_votes')
+    .insert({
+      poll_id: pollId,
+      option_index: optionIndex,
+      voter_id: voterId
+    });
+
+  if (error) {
+    if (error.code === '23505') {
+      // Already voted (unique constraint)
+      document.getElementById(pollId + '-voted').textContent = 'You already voted on this poll';
+    } else {
+      document.getElementById(pollId + '-voted').textContent = 'Error: ' + error.message;
+      document.getElementById(pollId + '-voted').style.color = '#e53e3e';
+      document.getElementById(pollId + '-voted').style.background = '#fff5f5';
+      // Re-enable buttons on error
+      buttons.forEach(b => b.classList.remove('disabled'));
+      btn.classList.remove('selected');
+    }
+  }
+
+  document.getElementById(pollId + '-voted').classList.add('show');
+  card.classList.add('voted');
+}
+
+// Show connection status
+const statusEl = document.getElementById('connStatus');
+if (SUPABASE_URL === 'YOUR_SUPABASE_URL') {
+  statusEl.textContent = '⚠ Supabase not configured — update credentials in vote.html';
+  statusEl.className = 'connection-status error';
+} else {
+  statusEl.textContent = '✓ Connected';
+  statusEl.className = 'connection-status connected';
+  checkExistingVotes();
+}
+</script>
+</body>
+</html>

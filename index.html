@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Journal Club: Lithium deficiency and AD</title>
+  <style>
+    :root {
+      --bg: #fff7f0;
+      --bg-2: #fff1e6;
+      --card: #fffaf4;
+      --card-2: #fff4ea;
+      --text: #4a3b33;
+      --muted: #8a7468;
+      --accent: #f2a88b;
+      --accent-2: #e8b7d4;
+      --good: #7fbf9b;
+      --warn: #d8a25f;
+      --bad: #cf8a8a;
+      --line: #e9cfc0;
+      --line-soft: #efd9cc;
+      --shadow: 0 14px 30px rgba(174, 133, 108, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 700px at -10% -10%, rgba(242, 168, 139, 0.26), transparent 60%),
+        radial-gradient(900px 500px at 110% 10%, rgba(232, 183, 212, 0.24), transparent 55%),
+        linear-gradient(155deg, var(--bg), var(--bg-2));
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .app {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 20px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 16px;
+      min-height: 100vh;
+    }
+
+    body.presentation-mode .app { max-width: 1280px; }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      background: linear-gradient(180deg, rgba(255, 249, 243, 0.92), rgba(255, 243, 234, 0.88));
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      backdrop-filter: blur(8px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .meta { color: var(--muted); font-size: 14px; }
+
+    .progress-wrap {
+      width: 230px;
+      height: 9px;
+      background: #f4dfd1;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid #e8c8b4;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 220ms ease;
+    }
+
+    .slide {
+      display: none;
+      background: linear-gradient(180deg, rgba(255, 251, 246, 0.97), rgba(255, 245, 236, 0.95));
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 30px;
+      min-height: 66vh;
+      box-shadow: var(--shadow);
+      animation: fadeInUp 220ms ease both;
+    }
+
+    .slide.active { display: block; }
+
+    body.presentation-mode .slide {
+      background: linear-gradient(180deg, rgba(255, 252, 248, 0.99), rgba(255, 247, 240, 0.99));
+      border-color: #dfbfab;
+      min-height: 72vh;
+      padding: 36px;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1, h2, h3 { margin-top: 0; line-height: 1.2; }
+
+    h1 {
+      font-size: 2.35rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #7a4f3a, #a56a56);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    h2 {
+      font-size: 1.62rem;
+      color: #6e4937;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+
+    h2::after {
+      content: '';
+      display: block;
+      width: 72px;
+      height: 3px;
+      margin-top: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+
+    h3 { color: #7a5543; }
+
+    p, li { line-height: 1.58; }
+    ul { padding-left: 20px; }
+
+    body.presentation-mode h1 { font-size: 2.7rem; }
+    body.presentation-mode h2 { font-size: 2rem; }
+    body.presentation-mode h3 { font-size: 1.3rem; }
+    body.presentation-mode p,
+    body.presentation-mode li,
+    body.presentation-mode td,
+    body.presentation-mode th,
+    body.presentation-mode button { font-size: 17px; line-height: 1.62; }
+    body.presentation-mode .small,
+    body.presentation-mode .kbd,
+    body.presentation-mode .meta { font-size: 15px; }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .card {
+      background: var(--card-2);
+      border: 1px solid #e7cdbd;
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    }
+
+    .table-wrap {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff7f1;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px 12px;
+      border-bottom: 1px solid #efd9cc;
+    }
+
+    th {
+      background: #fce8da;
+      color: #6e4d3d;
+      font-weight: 600;
+    }
+
+    tbody tr:nth-child(even) { background: rgba(248, 226, 211, 0.45); }
+
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid #e3b39a;
+      color: #855746;
+      background: rgba(242, 168, 139, 0.18);
+      margin-right: 6px;
+    }
+
+    .diagram-wrap {
+      background: radial-gradient(500px 220px at 20% 10%, rgba(242, 168, 139, 0.18), transparent 70%), #fff4ea;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 10px;
+    }
+
+    .flow-diagram {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    button {
+      background: linear-gradient(180deg, #fff3e8, #fce7d8);
+      color: var(--text);
+      border: 1px solid #ddbba8;
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+
+    button:hover {
+      box-shadow: 0 7px 12px rgba(201, 151, 122, 0.22);
+    }
+
+    .mode-toggle {
+      border-color: #d8a998;
+      background: linear-gradient(180deg, #ffe9db, #f7d8c9);
+    }
+
+    .mode-toggle.active {
+      border-color: #d59f86;
+      box-shadow: 0 0 0 1px rgba(242, 168, 139, 0.35);
+      background: linear-gradient(180deg, #ffdccc, #f5cdbb);
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 8px 2px 14px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .kbd { color: var(--muted); font-size: 13px; }
+    .small { font-size: 13px; color: var(--muted); }
+
+    a { color: #b7745b; }
+    a:hover { color: #9c604a; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div>
+        <strong>Psychiatry Journal Club</strong>
+        <div class="meta" id="slideCounter">Slide 1 / 14</div>
+      </div>
+      <div class="progress-wrap" aria-label="Progress">
+        <div class="progress" id="progressBar"></div>
+      </div>
+    </div>
+
+    <main>
+      <section class="slide active">
+        <h1>Lithium deficiency and the onset of Alzheimer’s disease</h1>
+        <p><strong>Nature (2025)</strong> • Narrative Journal Club for Psychiatric Residents</p>
+        <ul>
+          <li>Focus: mechanistic plausibility, evidence quality, and psychiatric relevance.</li>
+          <li>Format: non-interactive grand-rounds style discussion flow.</li>
+        </ul>
+        <p class="small">Source article: <a href="https://www.nature.com/articles/s41586-025-09335-x" target="_blank" rel="noreferrer">nature.com/articles/s41586-025-09335-x</a></p>
+      </section>
+
+      <section class="slide">
+        <h2>Learning objectives and roadmap</h2>
+        <div class="card-grid">
+          <div class="card"><h3>1) Clinical framing</h3><p>Why this paper matters for psychiatry and ageing brain health.</p></div>
+          <div class="card"><h3>2) Methods appraisal</h3><p>Human metallomics, spatial chemistry, models, and transcriptomics.</p></div>
+          <div class="card"><h3>3) Results synthesis</h3><p>Human signal, interventional model outcomes, pathway coherence.</p></div>
+          <div class="card"><h3>4) Translation</h3><p>What is actionable now vs what remains hypothesis-generating.</p></div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <h2>Clinical hook</h2>
+        <p>A 66-year-old with bipolar disorder stable on lithium asks whether their treatment is protective against dementia.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Question</th><th>What this paper can support</th><th>What it cannot support</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>“Does lithium biology matter in AD?”</td>
+                <td>Yes, the paper provides convergent mechanistic and preclinical evidence that endogenous lithium homeostasis may influence AD-related pathways.</td>
+                <td>It does not establish definitive human causal prevention effects in routine clinical populations.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="slide">
+        <h2>Study question and publication details</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Item</th><th>Detail</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge">Question</span>Core hypothesis</td><td>Does reduced endogenous brain lithium contribute to early AD pathogenesis, and can physiologic-range replacement mitigate this?</td></tr>
+              <tr><td><span class="badge">Citation</span>Paper details</td><td>Nature (2025), volume 645, pages 712–721, DOI: 10.1038/s41586-025-09335-x.</td></tr>
+              <tr><td><span class="badge">Approach</span>Design</td><td>Human tissue/serum metallomics + spatial analyses + mouse depletion/repletion experiments + snRNA-seq and pathway analyses.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="slide">
+        <h2>Methods architecture</h2>
+        <div class="card-grid">
+          <div class="card"><strong>Human arm</strong><p>Prefrontal cortex and serum metal profiling across NCI, amnestic MCI, and AD states.</p></div>
+          <div class="card"><strong>Spatial arm</strong><p>LA-ICP–MS to compare plaque-rich vs plaque-free regions.</p></div>
+          <div class="card"><strong>Model arm</strong><p>3xTg, J20, and ageing wild-type paradigms with lithium depletion/replacement.</p></div>
+          <div class="card"><strong>Omics arm</strong><p>snRNA-seq for cell-specific shifts and overlap with AD-associated signatures.</p></div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <h2>Statistical methods and sample context</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Domain</th><th>Reported analysis detail</th><th>Interpretive note</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge">Metals panel</span></td><td>27-metal comparisons with one-way ANOVA, Tukey post-hoc, and Benjamini–Hochberg correction.</td><td>Appropriate multiplicity control for broad screening.</td></tr>
+              <tr><td><span class="badge">snRNA-seq</span></td><td>64,772 nuclei (Li-deficient) vs 54,374 nuclei (control); DEF n=5 and CTRL n=4 mice.</td><td>Large cell-level data with modest animal-level sample size.</td></tr>
+              <tr><td><span class="badge">Assays</span></td><td>Example figure arms include n=5/group for some biochemical outcomes and n=4–8/group in microglial experiments.</td><td>Good to discuss power/precision heterogeneity across endpoints.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="slide">
+        <h2>Results I: human and spatial findings</h2>
+        <ul>
+          <li>Lithium reported as the only metal significantly reduced in both MCI and AD groups in this cohort dataset.</li>
+          <li>Further reduction in lithium bioavailability is discussed in relation to amyloid-associated sequestration.</li>
+          <li>Model spatial analyses report approximately 3–4-fold lithium enrichment in plaque regions versus adjacent non-plaque regions.</li>
+        </ul>
+      </section>
+
+      <section class="slide">
+        <h2>Results II: interventional model outcomes</h2>
+        <ul>
+          <li>Lithium-deficient diets were associated with worse amyloid and phospho-tau pathology in AD models.</li>
+          <li>Early and advanced phospho-tau markers were reported as elevated by about 3–4-fold in lithium-deficient 3xTg mice.</li>
+          <li>Structural and inflammatory changes were reported across synaptic, axonal, myelin, and microglial domains.</li>
+          <li>Replacement strategies, including low-dose lithium orotate approaches, showed rescue/preventive signals in models.</li>
+        </ul>
+      </section>
+
+      <section class="slide">
+        <h2>Normal GSK3β pathway (physiology)</h2>
+        <div class="diagram-wrap">
+          <svg class="flow-diagram" viewBox="0 0 1020 320" role="img" aria-label="Normal GSK3 beta signaling">
+            <defs>
+              <marker id="arrow-gsk" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L9,3 z" fill="#d69073"></path>
+              </marker>
+            </defs>
+            <rect x="20" y="20" width="475" height="280" rx="14" fill="#fff2e7" stroke="#dfbda8"></rect>
+            <text x="257" y="45" text-anchor="middle" fill="#7a4f3a" font-size="17" font-weight="600">Wnt OFF</text>
+            <rect x="60" y="85" width="145" height="54" rx="10" fill="#ffe4d3" stroke="#dcb7a3"></rect>
+            <text x="132" y="117" text-anchor="middle" fill="#6b4a3a" font-size="14">Active GSK3β</text>
+            <rect x="255" y="85" width="165" height="54" rx="10" fill="#ffe4d3" stroke="#dcb7a3"></rect>
+            <text x="337" y="117" text-anchor="middle" fill="#6b4a3a" font-size="14">β-catenin phosphorylation</text>
+            <line x1="205" y1="112" x2="255" y2="112" stroke="#d69073" stroke-width="3" marker-end="url(#arrow-gsk)"></line>
+            <rect x="155" y="195" width="200" height="64" rx="10" fill="#ffe4d3" stroke="#dcb7a3"></rect>
+            <text x="255" y="224" text-anchor="middle" fill="#6b4a3a" font-size="14">β-catenin degradation</text>
+            <text x="255" y="243" text-anchor="middle" fill="#6b4a3a" font-size="14">lower target transcription</text>
+            <line x1="337" y1="139" x2="255" y2="195" stroke="#d69073" stroke-width="3" marker-end="url(#arrow-gsk)"></line>
+
+            <rect x="525" y="20" width="475" height="280" rx="14" fill="#fff2e7" stroke="#dfbda8"></rect>
+            <text x="763" y="45" text-anchor="middle" fill="#7a4f3a" font-size="17" font-weight="600">Wnt ON</text>
+            <rect x="560" y="85" width="160" height="54" rx="10" fill="#ffe4d3" stroke="#dcb7a3"></rect>
+            <text x="640" y="117" text-anchor="middle" fill="#6b4a3a" font-size="14">Wnt receptor signaling</text>
+            <rect x="760" y="85" width="170" height="54" rx="10" fill="#ffe4d3" stroke="#dcb7a3"></rect>
+            <text x="845" y="117" text-anchor="middle" fill="#6b4a3a" font-size="14">Relative GSK3β suppression</text>
+            <line x1="720" y1="112" x2="760" y2="112" stroke="#d69073" stroke-width="3" marker-end="url(#arrow-gsk)"></line>
+            <rect x="675" y="195" width="185" height="64" rx="10" fill="#ffe4d3" stroke="#dcb7a3"></rect>
+            <text x="767" y="224" text-anchor="middle" fill="#6b4a3a" font-size="14">β-catenin stabilization</text>
+            <text x="767" y="243" text-anchor="middle" fill="#6b4a3a" font-size="14">nuclear target activation</text>
+            <line x1="845" y1="139" x2="790" y2="195" stroke="#d69073" stroke-width="3" marker-end="url(#arrow-gsk)"></line>
+          </svg>
+        </div>
+      </section>
+
+      <section class="slide">
+        <h2>Pathologic shift model in this paper</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Pathway node</th><th>Shift direction proposed</th><th>Observed/linked output</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge">Input</span>Endogenous Li</td><td>Reduced bioavailability in early disease states.</td><td>Higher susceptibility to GSK3β-related dysregulation.</td></tr>
+              <tr><td><span class="badge">Kinase</span>GSK3β activity</td><td>Relative increase in activation signal under deficient conditions.</td><td>Tau phosphorylation and pro-inflammatory pathway effects.</td></tr>
+              <tr><td><span class="badge">Cell state</span>Microglia/glia</td><td>Shift toward reactive signatures with AD-risk-gene overlap.</td><td>Inflammatory and clearance-related dysfunction profiles.</td></tr>
+              <tr><td><span class="badge">Output</span>Circuit integrity</td><td>Synaptic/myelin vulnerability rises.</td><td>Cognitive decline signals in disease and ageing models.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="slide">
+        <h2>Strengths and limitations</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Strengths</th><th>Limitations</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>
+                  <ul>
+                    <li>Triangulation across human, spatial, interventional, and omics data.</li>
+                    <li>Mechanistic pathway tests including inhibitor rescue.</li>
+                    <li>Consistent narrative from molecular to behavioral levels in models.</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    <li>Human observations remain non-randomized and non-causal.</li>
+                    <li>Model-to-human translation uncertainty remains substantial.</li>
+                    <li>Formulation, dose, and long-term safety questions persist for prevention contexts.</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="slide">
+        <h2>Psychiatry implications and communication</h2>
+        <div class="card-grid">
+          <div class="card"><strong>Reasonable statement</strong><p>Evidence supports a promising lithium biology pathway relevant to AD vulnerability.</p></div>
+          <div class="card"><strong>Overstatement to avoid</strong><p>Routine lithium prescribing for AD prevention is established and ready for universal practice.</p></div>
+          <div class="card"><strong>Clinical framing</strong><p>Continue lithium for psychiatric indications while discussing dementia prevention evidence as evolving.</p></div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <h2>Bottom line and future directions</h2>
+        <ul>
+          <li>Endogenous lithium homeostasis appears biologically important in early AD-related pathways.</li>
+          <li>The evidence is mechanistically compelling, but not yet definitive for human prevention recommendations.</li>
+          <li>Highest-priority next step: prospective, biomarker-stratified clinical studies with cognitive and safety endpoints.</li>
+        </ul>
+        <p class="small">Primary reference: <a href="https://www.nature.com/articles/s41586-025-09335-x" target="_blank" rel="noreferrer">Lithium deficiency and the onset of Alzheimer’s disease</a></p>
+      </section>
+    </main>
+
+    <div class="footer">
+      <div class="kbd">Keyboard: ← / → navigate, P presentation mode.</div>
+      <div class="controls">
+        <button id="modeBtn" class="mode-toggle">Presentation Mode: Off</button>
+        <button id="prevBtn">← Previous</button>
+        <button id="nextBtn">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const progressBar = document.getElementById('progressBar');
+    const slideCounter = document.getElementById('slideCounter');
+    const modeBtn = document.getElementById('modeBtn');
+    let index = 0;
+
+    function renderSlide() {
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+      slideCounter.textContent = `Slide ${index + 1} / ${slides.length}`;
+      progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+    }
+
+    function setPresentationMode(enabled) {
+      document.body.classList.toggle('presentation-mode', enabled);
+      modeBtn.classList.toggle('active', enabled);
+      modeBtn.textContent = `Presentation Mode: ${enabled ? 'On' : 'Off'}`;
+      localStorage.setItem('presentationMode', enabled ? 'on' : 'off');
+    }
+
+    function next() {
+      if (index < slides.length - 1) {
+        index += 1;
+        renderSlide();
+      }
+    }
+
+    function prev() {
+      if (index > 0) {
+        index -= 1;
+        renderSlide();
+      }
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', next);
+    document.getElementById('prevBtn').addEventListener('click', prev);
+    modeBtn.addEventListener('click', () => {
+      setPresentationMode(!document.body.classList.contains('presentation-mode'));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') next();
+      if (event.key === 'ArrowLeft') prev();
+      if (event.key.toLowerCase() === 'p') {
+        event.preventDefault();
+        setPresentationMode(!document.body.classList.contains('presentation-mode'));
+      }
+    });
+
+    setPresentationMode(localStorage.getItem('presentationMode') === 'on');
+    renderSlide();
+  </script>
+</body>
+</html>
