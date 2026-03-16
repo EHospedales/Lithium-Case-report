@@ -586,7 +586,7 @@
 <!-- Navigation Bar -->
 <div class="nav-bar">
   <div class="title">Journal Club: Quetiapine & Lithium in TRD</div>
-  <div class="progress-info" id="progressInfo">Slide 1 / 12</div>
+  <div class="progress-info" id="progressInfo">Slide 1 / 13</div>
 </div>
 <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
 
@@ -611,16 +611,17 @@
   <h4>Sections</h4>
   <button class="toc-item" onclick="goToSlide(0)">1. Title</button>
   <button class="toc-item" onclick="goToSlide(1)">2. Why This Study Matters</button>
-  <button class="toc-item" onclick="goToSlide(2)">3. Study Design & Methods</button>
-  <button class="toc-item" onclick="goToSlide(3)">4. Outcomes & Measurement</button>
-  <button class="toc-item" onclick="goToSlide(4)">5. Statistical Analysis</button>
-  <button class="toc-item" onclick="goToSlide(5)">6. Baseline Characteristics</button>
-  <button class="toc-item" onclick="goToSlide(6)">7. Results — Think First</button>
-  <button class="toc-item" onclick="goToSlide(7)">8. Primary & Secondary Findings</button>
-  <button class="toc-item" onclick="goToSlide(8)">9. Interpreting the Data</button>
-  <button class="toc-item" onclick="goToSlide(9)">10. Limitations & Strengths</button>
-  <button class="toc-item" onclick="goToSlide(10)">11. Clinical Implications</button>
-  <button class="toc-item" onclick="goToSlide(11)">12. Wrap-Up & Take-Homes</button>
+  <button class="toc-item" onclick="goToSlide(2)">3. Serotonin Pharmacology</button>
+  <button class="toc-item" onclick="goToSlide(3)">4. Study Design & Methods</button>
+  <button class="toc-item" onclick="goToSlide(4)">5. Outcomes & Measurement</button>
+  <button class="toc-item" onclick="goToSlide(5)">6. Statistical Analysis</button>
+  <button class="toc-item" onclick="goToSlide(6)">7. Baseline Characteristics</button>
+  <button class="toc-item" onclick="goToSlide(7)">8. Results — Think First</button>
+  <button class="toc-item" onclick="goToSlide(8)">9. Primary & Secondary Findings</button>
+  <button class="toc-item" onclick="goToSlide(9)">10. Interpreting the Data</button>
+  <button class="toc-item" onclick="goToSlide(10)">11. Limitations & Strengths</button>
+  <button class="toc-item" onclick="goToSlide(11)">12. Clinical Implications</button>
+  <button class="toc-item" onclick="goToSlide(12)">13. Wrap-Up & Take-Homes</button>
 </div>
 
 <div class="kbd-hint">
@@ -671,8 +672,88 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 3: STUDY DESIGN ============ -->
+<!-- ============ SLIDE 3: SEROTONIN PHARMACOLOGY ============ -->
 <div class="slide" data-slide="2">
+  <div class="card">
+    <div class="section-label">Pharmacology Background</div>
+    <h2>Lithium &amp; Quetiapine: Serotonin Modulation</h2>
+    <p>Understanding how each drug interacts with the serotonergic system provides a mechanistic framework for interpreting the study results.</p>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: Lithium's Effects on Serotonin</div>
+      <div class="reveal-content">
+        <h3>Lithium &amp; Serotonin (5-HT)</h3>
+        <ul>
+          <li><strong>Enhances serotonin release:</strong> Lithium increases presynaptic 5-HT release by facilitating tryptophan uptake into neurons and enhancing serotonin synthesis <span style="color:#718096;font-size:0.85rem;">(Price et al., 1990, <em>Arch Gen Psychiatry</em>)</span></li>
+          <li><strong>Increases postsynaptic 5-HT sensitivity:</strong> Chronic lithium exposure upregulates postsynaptic 5-HT<sub>1A</sub> receptor–mediated responses in the hippocampus, which may underlie its antidepressant-augmenting effects <span style="color:#718096;font-size:0.85rem;">(de Montigny et al., 1983, <em>Neuropsychopharmacology</em>; Haddjeri et al., 2000, <em>Neuropsychopharmacology</em>)</span></li>
+          <li><strong>Reduces 5-HT<sub>2</sub> receptor signaling:</strong> Lithium attenuates 5-HT<sub>2A</sub> receptor–mediated responses, which may contribute to its mood-stabilizing and anti-aggressive effects <span style="color:#718096;font-size:0.85rem;">(Ananth et al., 1993, <em>Psychopharmacol Bull</em>)</span></li>
+          <li><strong>Modulates second messenger systems:</strong> Lithium inhibits inositol monophosphatase, depleting PIP<sub>2</sub> signaling downstream of 5-HT<sub>2</sub> receptors — the "inositol depletion hypothesis" <span style="color:#718096;font-size:0.85rem;">(Berridge et al., 1989, <em>Cell</em>)</span></li>
+          <li><strong>GSK-3β inhibition:</strong> Lithium directly inhibits glycogen synthase kinase-3β, which regulates serotonin receptor trafficking and sensitivity <span style="color:#718096;font-size:0.85rem;">(Beaulieu et al., 2008, <em>Pharmacol Rev</em>)</span></li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Key concept:</strong> Lithium is thought to augment antidepressant effects primarily by enhancing serotonergic neurotransmission "from below" — increasing 5-HT availability and postsynaptic 5-HT<sub>1A</sub> responsiveness.
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: Quetiapine's Effects on Serotonin</div>
+      <div class="reveal-content">
+        <h3>Quetiapine &amp; Serotonin (5-HT)</h3>
+        <ul>
+          <li><strong>Potent 5-HT<sub>2A</sub> antagonism:</strong> Quetiapine blocks postsynaptic 5-HT<sub>2A</sub> receptors, which disinhibits dopamine release in the prefrontal cortex and may improve cognition and mood <span style="color:#718096;font-size:0.85rem;">(Meltzer et al., 2003, <em>Prog Neuropsychopharmacol Biol Psychiatry</em>)</span></li>
+          <li><strong>Partial 5-HT<sub>1A</sub> agonism:</strong> Quetiapine and its active metabolite norquetiapine act as partial agonists at 5-HT<sub>1A</sub> receptors, a property shared with anxiolytic agents like buspirone <span style="color:#718096;font-size:0.85rem;">(Jensen et al., 2008, <em>Psychopharmacology</em>)</span></li>
+          <li><strong>Norquetiapine inhibits NET:</strong> Quetiapine's major active metabolite, norquetiapine, is a potent norepinephrine transporter (NET) inhibitor, giving it SNRI-like antidepressant properties <span style="color:#718096;font-size:0.85rem;">(Nyberg et al., 2005, <em>J Pharmacol Exp Ther</em>)</span></li>
+          <li><strong>5-HT<sub>7</sub> antagonism:</strong> Quetiapine blocks 5-HT<sub>7</sub> receptors, which are implicated in circadian rhythm regulation and may contribute to its sleep-improving and antidepressant effects <span style="color:#718096;font-size:0.85rem;">(Hedlund, 2009, <em>Psychopharmacology</em>)</span></li>
+          <li><strong>H<sub>1</sub> antagonism:</strong> Strong histamine H<sub>1</sub> blockade produces sedation and anxiolysis, relevant to its effects in anxious depression <span style="color:#718096;font-size:0.85rem;">(Saller &amp; Salama, 1993, <em>Curr Med Chem</em>)</span></li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Key concept:</strong> Quetiapine's multimodal mechanism — combining 5-HT<sub>2A</sub> blockade, partial 5-HT<sub>1A</sub> agonism, NET inhibition, and H<sub>1</sub> antagonism — may explain its anxiolytic-antidepressant profile in TRD.
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-container">
+      <h3>Pharmacology Check</h3>
+      <p>Which shared serotonergic mechanism might explain why <em>both</em> lithium and quetiapine reduce anxiety in TRD patients, as seen in this study?</p>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quizPharm')">A. Both are potent 5-HT reuptake inhibitors</button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quizPharm')">B. Both enhance 5-HT<sub>1A</sub>–mediated neurotransmission (lithium via upregulation, quetiapine via partial agonism)</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quizPharm')">C. Both directly block GABA-A receptors</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quizPharm')">D. Both inhibit monoamine oxidase</button>
+      <div class="quiz-explanation" id="quizPharm-explanation">
+        <strong>Answer: B.</strong> Both drugs augment 5-HT<sub>1A</sub> signaling, though by different mechanisms. Lithium upregulates postsynaptic 5-HT<sub>1A</sub> receptor sensitivity (de Montigny et al., 1983), while quetiapine/norquetiapine acts as a partial 5-HT<sub>1A</sub> agonist (Jensen et al., 2008). Enhanced 5-HT<sub>1A</sub> transmission is an established anxiolytic mechanism — it is the basis for buspirone's efficacy in generalized anxiety. This convergence may partly explain why the LQD study found <strong>no difference</strong> in anxiolytic effect between the two drugs.
+      </div>
+    </div>
+
+    <div class="discussion-prompt">
+      <h3>Discussion</h3>
+      <p>If both drugs enhance 5-HT<sub>1A</sub> signaling and have similar anxiolytic effects, what <strong>additional mechanisms</strong> might explain quetiapine's superior antidepressant effect in patients with severe anxiety?</p>
+      <div class="timer-widget">
+        <span class="timer-display" id="timerPharm">2:00</span>
+        <button class="timer-btn timer-start" onclick="startTimer('timerPharm', 120)">Start</button>
+        <button class="timer-btn timer-reset" onclick="resetTimer('timerPharm', 120)">Reset</button>
+      </div>
+    </div>
+
+    <div class="key-point">
+      <h3>Selected References</h3>
+      <ul style="font-size:0.85rem; color:#4a5568;">
+        <li>Beaulieu JM et al. (2008) The Akt–GSK-3 signaling cascade in the actions of dopamine. <em>Pharmacol Rev</em> 60(4):358–403</li>
+        <li>Berridge MJ et al. (1989) Neural and developmental actions of lithium: a unifying hypothesis. <em>Cell</em> 59(3):411–419</li>
+        <li>de Montigny C et al. (1983) Lithium induces rapid relief of depression in tricyclic antidepressant drug non-responders. <em>Br J Psychiatry</em> 143:308–311</li>
+        <li>Haddjeri N et al. (2000) Effect of long-term treatment with lithium on 5-HT<sub>1A</sub> receptors. <em>Neuropsychopharmacology</em> 23(4):395–404</li>
+        <li>Hedlund PB (2009) The 5-HT<sub>7</sub> receptor and disorders of the nervous system. <em>Psychopharmacology</em> 206(3):345–354</li>
+        <li>Jensen NH et al. (2008) N-desalkylquetiapine, a potent norepinephrine reuptake inhibitor and partial 5-HT<sub>1A</sub> agonist. <em>Psychopharmacology</em> 199(4):715–722</li>
+        <li>Meltzer HY et al. (2003) Serotonin receptors: their key role in drugs to treat schizophrenia. <em>Prog Neuropsychopharmacol Biol Psychiatry</em> 27(7):1159–1172</li>
+        <li>Nyberg S et al. (2005) Suggested minimal effective dose of quetiapine based on PET-measured D<sub>2</sub> and 5-HT<sub>2A</sub> receptor occupancy. <em>J Pharmacol Exp Ther</em> 314(3):1042–1049</li>
+        <li>Price LH et al. (1990) Lithium augmentation of combined neuroendocrine and behavioral effects of serotonin. <em>Arch Gen Psychiatry</em> 47:411–418</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 4: STUDY DESIGN ============ -->
+<div class="slide" data-slide="3">
   <div class="card">
     <div class="section-label">Methodology</div>
     <h2>Study Design &amp; Methods</h2>
@@ -732,8 +813,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 4: OUTCOMES ============ -->
-<div class="slide" data-slide="3">
+<!-- ============ SLIDE 5: OUTCOMES ============ -->
+<div class="slide" data-slide="4">
   <div class="card">
     <div class="section-label">Outcome Measurement</div>
     <h2>Outcomes &amp; Measurement</h2>
@@ -775,8 +856,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 5: STATISTICAL ANALYSIS ============ -->
-<div class="slide" data-slide="4">
+<!-- ============ SLIDE 6: STATISTICAL ANALYSIS ============ -->
+<div class="slide" data-slide="5">
   <div class="card">
     <div class="section-label">Analytic Strategy</div>
     <h2>Statistical Analysis</h2>
@@ -867,8 +948,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 6: BASELINE CHARACTERISTICS ============ -->
-<div class="slide" data-slide="5">
+<!-- ============ SLIDE 7: BASELINE CHARACTERISTICS ============ -->
+<div class="slide" data-slide="6">
   <div class="card">
     <div class="section-label">Baseline Data</div>
     <h2>Sociodemographic &amp; Clinical Characteristics at Baseline</h2>
@@ -902,8 +983,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 7: RESULTS PREDICTION ============ -->
-<div class="slide" data-slide="6">
+<!-- ============ SLIDE 8: RESULTS PREDICTION ============ -->
+<div class="slide" data-slide="7">
   <div class="section-divider">
     <div class="section-label" style="color:rgba(255,255,255,0.7)">RESULTS SECTION</div>
     <h2>Before We Look at Results...</h2>
@@ -933,8 +1014,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 8: PRIMARY & SECONDARY FINDINGS ============ -->
-<div class="slide" data-slide="7">
+<!-- ============ SLIDE 9: PRIMARY & SECONDARY FINDINGS ============ -->
+<div class="slide" data-slide="8">
   <div class="card">
     <div class="section-label">Results</div>
     <h2>Primary &amp; Secondary Findings</h2>
@@ -975,8 +1056,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 9: INTERPRETING THE DATA ============ -->
-<div class="slide" data-slide="8">
+<!-- ============ SLIDE 10: INTERPRETING THE DATA ============ -->
+<div class="slide" data-slide="9">
   <div class="card accent">
     <div class="section-label">Critical Appraisal</div>
     <h2>Interpreting the Data</h2>
@@ -1021,8 +1102,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 10: LIMITATIONS & STRENGTHS ============ -->
-<div class="slide" data-slide="9">
+<!-- ============ SLIDE 11: LIMITATIONS & STRENGTHS ============ -->
+<div class="slide" data-slide="10">
   <div class="card">
     <div class="section-label">Critical Appraisal</div>
     <h2>Strengths &amp; Limitations</h2>
@@ -1067,8 +1148,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 11: CLINICAL IMPLICATIONS ============ -->
-<div class="slide" data-slide="10">
+<!-- ============ SLIDE 12: CLINICAL IMPLICATIONS ============ -->
+<div class="slide" data-slide="11">
   <div class="card success">
     <div class="section-label">Practice Application</div>
     <h2>Clinical Implications</h2>
@@ -1100,8 +1181,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 12: WRAP-UP ============ -->
-<div class="slide" data-slide="11">
+<!-- ============ SLIDE 13: WRAP-UP ============ -->
+<div class="slide" data-slide="12">
   <div class="card">
     <div class="section-label">Summary</div>
     <h2>Take-Home Messages</h2>
