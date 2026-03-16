@@ -613,16 +613,18 @@
   <button class="toc-item" onclick="goToSlide(1)">2. Why This Study Matters</button>
   <button class="toc-item" onclick="goToSlide(2)">3. Serotonin Pharmacology</button>
   <button class="toc-item" onclick="goToSlide(3)">4. Study Design & Methods</button>
-  <button class="toc-item" onclick="goToSlide(4)">5. Outcomes & Measurement</button>
-  <button class="toc-item" onclick="goToSlide(5)">6. Statistical Analysis</button>
-  <button class="toc-item" onclick="goToSlide(6)">7. Baseline Characteristics</button>
-  <button class="toc-item" onclick="goToSlide(7)">8. Results — Think First</button>
-  <button class="toc-item" onclick="goToSlide(8)">9. Primary & Secondary Findings</button>
-  <button class="toc-item" onclick="goToSlide(9)">10. AUC Visualization</button>
-  <button class="toc-item" onclick="goToSlide(10)">11. Interpreting the Data</button>
-  <button class="toc-item" onclick="goToSlide(11)">12. Limitations & Strengths</button>
-  <button class="toc-item" onclick="goToSlide(12)">13. Clinical Implications</button>
-  <button class="toc-item" onclick="goToSlide(13)">14. Wrap-Up & Take-Homes</button>
+  <button class="toc-item" onclick="goToSlide(4)">5. CONSORT Flow</button>
+  <button class="toc-item" onclick="goToSlide(5)">6. Outcomes & Measurement</button>
+  <button class="toc-item" onclick="goToSlide(6)">7. Statistical Analysis</button>
+  <button class="toc-item" onclick="goToSlide(7)">8. Baseline Characteristics</button>
+  <button class="toc-item" onclick="goToSlide(8)">9. Results — Think First</button>
+  <button class="toc-item" onclick="goToSlide(9)">10. Primary & Secondary Findings</button>
+  <button class="toc-item" onclick="goToSlide(10)">11. AUC Visualization</button>
+  <button class="toc-item" onclick="goToSlide(11)">12. Statistical vs Clinical Significance</button>
+  <button class="toc-item" onclick="goToSlide(12)">13. Interpreting the Data</button>
+  <button class="toc-item" onclick="goToSlide(13)">14. Limitations & Strengths</button>
+  <button class="toc-item" onclick="goToSlide(14)">15. Clinical Implications</button>
+  <button class="toc-item" onclick="goToSlide(15)">16. Wrap-Up & Take-Homes</button>
 </div>
 
 <div class="kbd-hint">
@@ -814,8 +816,148 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 5: OUTCOMES ============ -->
+<!-- ============ SLIDE 5: CONSORT FLOW ============ -->
 <div class="slide" data-slide="4">
+  <div class="card">
+    <div class="section-label">Study Design</div>
+    <h2>CONSORT Participant Flow</h2>
+    <p style="text-align:center;color:#666;margin-bottom:0.2rem;font-size:0.92rem;">Tracking attrition is essential for evaluating internal validity</p>
+
+    <div style="text-align:center;overflow-x:auto;">
+      <svg viewBox="0 0 780 620" style="max-width:740px;width:100%;height:auto;font-family:'Inter',sans-serif;">
+        <!-- ─── ENROLLMENT ─── -->
+        <rect x="220" y="10" width="340" height="52" rx="8" fill="#2b6cb0" stroke="#1a365d" stroke-width="1.5"/>
+        <text x="390" y="32" text-anchor="middle" font-size="12" fill="#fff" font-weight="600">Assessed for Eligibility</text>
+        <text x="390" y="48" text-anchor="middle" font-size="14" fill="#fff" font-weight="700">N = 212 enrolled (Dec 2016 – Jul 2021)</text>
+
+        <!-- Arrow down -->
+        <line x1="390" y1="62" x2="390" y2="100" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+        <!-- ─── RANDOMIZATION ─── -->
+        <rect x="240" y="100" width="300" height="44" rx="8" fill="#ed8936" stroke="#c05621" stroke-width="1.5"/>
+        <text x="390" y="119" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">Randomized 1:1</text>
+        <text x="390" y="135" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">N = 212</text>
+
+        <!-- Split arrows -->
+        <line x1="310" y1="144" x2="160" y2="190" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+        <line x1="470" y1="144" x2="620" y2="190" stroke="#4a5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+        <!-- ─── LITHIUM ARM ─── -->
+        <rect x="40" y="190" width="240" height="44" rx="6" fill="#e53e3e" stroke="#c53030" stroke-width="1.2"/>
+        <text x="160" y="209" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">Allocated to Lithium</text>
+        <text x="160" y="225" text-anchor="middle" font-size="14" fill="#fff" font-weight="700">n = 105</text>
+
+        <!-- ─── QUETIAPINE ARM ─── -->
+        <rect x="500" y="190" width="240" height="44" rx="6" fill="#2f855a" stroke="#22543d" stroke-width="1.2"/>
+        <text x="620" y="209" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">Allocated to Quetiapine</text>
+        <text x="620" y="225" text-anchor="middle" font-size="14" fill="#fff" font-weight="700">n = 107</text>
+
+        <!-- Downward arrows from arms -->
+        <line x1="160" y1="234" x2="160" y2="275" stroke="#4a5568" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <line x1="620" y1="234" x2="620" y2="275" stroke="#4a5568" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+        <!-- ─── WEEK 8 ─── -->
+        <rect x="85" y="275" width="150" height="42" rx="5" fill="#fff" stroke="#2b6cb0" stroke-width="1.5"/>
+        <text x="160" y="293" text-anchor="middle" font-size="10" fill="#4a5568" font-weight="600">Week 8</text>
+        <text x="160" y="307" text-anchor="middle" font-size="12" fill="#2b6cb0" font-weight="700">Data available</text>
+
+        <rect x="545" y="275" width="150" height="42" rx="5" fill="#fff" stroke="#2b6cb0" stroke-width="1.5"/>
+        <text x="620" y="293" text-anchor="middle" font-size="10" fill="#4a5568" font-weight="600">Week 8</text>
+        <text x="620" y="307" text-anchor="middle" font-size="12" fill="#2b6cb0" font-weight="700">Data available</text>
+
+        <!-- Central combined box -->
+        <rect x="280" y="280" width="220" height="34" rx="5" fill="#ebf8ff" stroke="#2b6cb0" stroke-width="1"/>
+        <text x="390" y="302" text-anchor="middle" font-size="12" fill="#2b6cb0" font-weight="700">n = 184 (87%)</text>
+        <line x1="235" y1="296" x2="280" y2="296" stroke="#a0aec0" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="500" y1="296" x2="695" y2="296" stroke="#a0aec0" stroke-width="1" stroke-dasharray="4,3"/>
+
+        <!-- Attrition callout -->
+        <text x="390" y="340" text-anchor="middle" font-size="10" fill="#e53e3e">▼ 28 (13%) missing GAD-7 data</text>
+
+        <!-- Arrows down -->
+        <line x1="160" y1="317" x2="160" y2="365" stroke="#4a5568" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <line x1="620" y1="317" x2="620" y2="365" stroke="#4a5568" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+        <!-- ─── WEEK 26 ─── -->
+        <rect x="85" y="365" width="150" height="42" rx="5" fill="#fff" stroke="#2b6cb0" stroke-width="1.5"/>
+        <text x="160" y="383" text-anchor="middle" font-size="10" fill="#4a5568" font-weight="600">Week 26</text>
+        <text x="160" y="397" text-anchor="middle" font-size="12" fill="#2b6cb0" font-weight="700">Data available</text>
+
+        <rect x="545" y="365" width="150" height="42" rx="5" fill="#fff" stroke="#2b6cb0" stroke-width="1.5"/>
+        <text x="620" y="383" text-anchor="middle" font-size="10" fill="#4a5568" font-weight="600">Week 26</text>
+        <text x="620" y="397" text-anchor="middle" font-size="12" fill="#2b6cb0" font-weight="700">Data available</text>
+
+        <rect x="280" y="370" width="220" height="34" rx="5" fill="#ebf8ff" stroke="#2b6cb0" stroke-width="1"/>
+        <text x="390" y="392" text-anchor="middle" font-size="12" fill="#2b6cb0" font-weight="700">n = 147 (69%)</text>
+        <line x1="235" y1="386" x2="280" y2="386" stroke="#a0aec0" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="500" y1="386" x2="695" y2="386" stroke="#a0aec0" stroke-width="1" stroke-dasharray="4,3"/>
+
+        <text x="390" y="430" text-anchor="middle" font-size="10" fill="#e53e3e">▼ 65 (31%) missing — cumulative from baseline</text>
+
+        <!-- Arrows down -->
+        <line x1="160" y1="407" x2="160" y2="455" stroke="#4a5568" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <line x1="620" y1="407" x2="620" y2="455" stroke="#4a5568" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+        <!-- ─── WEEK 52 ─── -->
+        <rect x="85" y="455" width="150" height="42" rx="5" fill="#fff" stroke="#e53e3e" stroke-width="2"/>
+        <text x="160" y="473" text-anchor="middle" font-size="10" fill="#4a5568" font-weight="600">Week 52</text>
+        <text x="160" y="487" text-anchor="middle" font-size="12" fill="#e53e3e" font-weight="700">Data available</text>
+
+        <rect x="545" y="455" width="150" height="42" rx="5" fill="#fff" stroke="#e53e3e" stroke-width="2"/>
+        <text x="620" y="473" text-anchor="middle" font-size="10" fill="#4a5568" font-weight="600">Week 52</text>
+        <text x="620" y="487" text-anchor="middle" font-size="12" fill="#e53e3e" font-weight="700">Data available</text>
+
+        <rect x="280" y="460" width="220" height="34" rx="5" fill="#fff3f3" stroke="#e53e3e" stroke-width="1.5"/>
+        <text x="390" y="482" text-anchor="middle" font-size="12" fill="#e53e3e" font-weight="700">n = 119 (56%)</text>
+        <line x1="235" y1="476" x2="280" y2="476" stroke="#feb2b2" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="500" y1="476" x2="695" y2="476" stroke="#feb2b2" stroke-width="1" stroke-dasharray="4,3"/>
+
+        <text x="390" y="520" text-anchor="middle" font-size="10" fill="#e53e3e" font-weight="600">▼ 93 (44%) missing — nearly half the sample</text>
+
+        <!-- ─── ITT BOX ─── -->
+        <rect x="190" y="545" width="400" height="50" rx="8" fill="#f0fff4" stroke="#38a169" stroke-width="2"/>
+        <text x="390" y="565" text-anchor="middle" font-size="11" fill="#22543d" font-weight="600">ITT Analysis: All 212 participants included</text>
+        <text x="390" y="582" text-anchor="middle" font-size="10" fill="#2f855a">Linear mixed models handle missing data under MAR assumption</text>
+
+        <line x1="390" y1="520" x2="390" y2="545" stroke="#38a169" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="6,3"/>
+
+        <!-- Arrowhead definition -->
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#4a5568"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: Attrition Bias Discussion</div>
+      <div class="reveal-content">
+        <ul>
+          <li><strong>44% data loss at 52 weeks</strong> is substantial — raises concern about whether completers differ systematically from dropouts.</li>
+          <li><strong>Open-label design</strong> may interact with attrition: participants aware of allocation may discontinue differentially based on expectations or side effects.</li>
+          <li><strong>Mixed models (MAR assumption):</strong> Valid if data is "missing at random" — i.e., missingness is related to <em>observed</em> variables (which are conditioned on) but not <em>unobserved</em> outcomes. If sicker patients dropped out disproportionately, estimates could be biased.</li>
+          <li><strong>Pragmatic design trade-off:</strong> Long follow-up (52 weeks) is a strength but inevitably increases attrition vs shorter trials.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quiz-container">
+      <h3>Quick Check</h3>
+      <p>With 44% of participants missing outcome data at week 52, which analytic approach best handles this in a longitudinal trial?</p>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quizConsort')">A. Complete-case analysis only</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quizConsort')">B. Last observation carried forward (LOCF)</button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quizConsort')">C. Linear mixed models with random effects</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quizConsort')">D. Multiple imputation with per-protocol analysis</button>
+      <div class="quiz-explanation" id="quizConsort-explanation">
+        <strong>Answer: C.</strong> Linear mixed models use <em>all available data</em> from each participant (even those with incomplete follow-up) and are valid under the <strong>Missing at Random (MAR)</strong> assumption. LOCF is now considered outdated as it introduces bias by assuming no change after dropout. Complete-case analysis discards valuable data and is biased if dropout is non-random. This trial appropriately used mixed models with random intercepts and slopes.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 6: OUTCOMES ============ -->
+<div class="slide" data-slide="5">
   <div class="card">
     <div class="section-label">Outcome Measurement</div>
     <h2>Outcomes &amp; Measurement</h2>
@@ -857,8 +999,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 6: STATISTICAL ANALYSIS ============ -->
-<div class="slide" data-slide="5">
+<!-- ============ SLIDE 7: STATISTICAL ANALYSIS ============ -->
+<div class="slide" data-slide="6">
   <div class="card">
     <div class="section-label">Analytic Strategy</div>
     <h2>Statistical Analysis</h2>
@@ -949,8 +1091,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 7: BASELINE CHARACTERISTICS ============ -->
-<div class="slide" data-slide="6">
+<!-- ============ SLIDE 8: BASELINE CHARACTERISTICS ============ -->
+<div class="slide" data-slide="7">
   <div class="card">
     <div class="section-label">Baseline Data</div>
     <h2>Sociodemographic &amp; Clinical Characteristics at Baseline</h2>
@@ -984,8 +1126,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 8: RESULTS PREDICTION ============ -->
-<div class="slide" data-slide="7">
+<!-- ============ SLIDE 9: RESULTS PREDICTION ============ -->
+<div class="slide" data-slide="8">
   <div class="section-divider">
     <div class="section-label" style="color:rgba(255,255,255,0.7)">RESULTS SECTION</div>
     <h2>Before We Look at Results...</h2>
@@ -1015,8 +1157,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 9: PRIMARY & SECONDARY FINDINGS ============ -->
-<div class="slide" data-slide="8">
+<!-- ============ SLIDE 10: PRIMARY & SECONDARY FINDINGS ============ -->
+<div class="slide" data-slide="9">
   <div class="card">
     <div class="section-label">Results</div>
     <h2>Primary &amp; Secondary Findings</h2>
@@ -1064,8 +1206,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 10: AUC VISUALIZATION ============ -->
-<div class="slide" data-slide="9">
+<!-- ============ SLIDE 11: AUC VISUALIZATION ============ -->
+<div class="slide" data-slide="10">
   <div class="card">
     <div class="section-label">Results — Visual</div>
     <h2>AUC of Depression Scores: Quetiapine vs Lithium</h2>
@@ -1210,8 +1352,106 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 11: INTERPRETING THE DATA ============ -->
-<div class="slide" data-slide="10">
+<!-- ============ SLIDE 12: NNT & CLINICAL SIGNIFICANCE ============ -->
+<div class="slide" data-slide="11">
+  <div class="card">
+    <div class="section-label">Critical Appraisal</div>
+    <h2>Statistical vs Clinical Significance</h2>
+
+    <div class="quiz-container">
+      <h3>Calculation Challenge</h3>
+      <p>The overall AUC difference is <strong>−71.6 QIDS-points × weeks</strong> over 52 weeks. What is the <em>average weekly</em> QIDS difference between quetiapine and lithium?</p>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quizNNT1')">A. −71.6 points/week</button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quizNNT1')">B. −1.4 points/week</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quizNNT1')">C. −7.2 points/week</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quizNNT1')">D. −0.14 points/week</button>
+      <div class="quiz-explanation" id="quizNNT1-explanation">
+        <strong>Answer: B.</strong> AUC ÷ weeks = −71.6 ÷ 52 ≈ <strong>−1.4 QIDS points/week</strong>. The QIDS-SR ranges from 0–27, and the commonly cited MCID (minimally clinically important difference) is <strong>2–3 points</strong>. So the average weekly advantage for quetiapine is <em>below</em> the conventional MCID threshold — raising the question of whether this statistically significant result is clinically meaningful <em>on average</em>.
+      </div>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: Why NNT Cannot Be Directly Calculated Here</div>
+      <div class="reveal-content">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div style="background:#f7fafc;padding:1rem;border-radius:8px;border-left:4px solid #2b6cb0;">
+            <h4 style="color:#2b6cb0;margin:0 0 0.5rem;">NNT Requires…</h4>
+            <ul style="margin:0;padding-left:1.2rem;font-size:0.92rem;">
+              <li>A <strong>binary outcome</strong> (responder/non-responder)</li>
+              <li>A defined <strong>response threshold</strong> (e.g., ≥50% QIDS reduction)</li>
+              <li>Response <strong>rates per arm</strong></li>
+            </ul>
+            <p style="font-size:0.85rem;color:#718096;margin:0.5rem 0 0;"><em>Formula: NNT = 1 / (Response<sub>Quetiapine</sub> − Response<sub>Lithium</sub>)</em></p>
+          </div>
+          <div style="background:#f7fafc;padding:1rem;border-radius:8px;border-left:4px solid #ed8936;">
+            <h4 style="color:#ed8936;margin:0 0 0.5rem;">This Study Reports…</h4>
+            <ul style="margin:0;padding-left:1.2rem;font-size:0.92rem;">
+              <li>A <strong>continuous AUC</strong> of QIDS differences</li>
+              <li><strong>No binary responder</strong> analysis</li>
+              <li>No per-arm response rates published</li>
+            </ul>
+            <p style="font-size:0.85rem;color:#718096;margin:0.5rem 0 0;"><em>AUC captures cumulative burden but can't be converted to NNT without additional data.</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: Contextualizing the Effect Size</div>
+      <div class="reveal-content">
+        <table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
+          <thead>
+            <tr style="background:#edf2f7;">
+              <th style="padding:0.5rem;text-align:left;border-bottom:2px solid #cbd5e0;">Metric</th>
+              <th style="padding:0.5rem;text-align:center;border-bottom:2px solid #cbd5e0;">Value</th>
+              <th style="padding:0.5rem;text-align:left;border-bottom:2px solid #cbd5e0;">Interpretation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:0.5rem;border-bottom:1px solid #e2e8f0;">Overall AUC difference</td>
+              <td style="padding:0.5rem;text-align:center;border-bottom:1px solid #e2e8f0;font-weight:600;">−71.6</td>
+              <td style="padding:0.5rem;border-bottom:1px solid #e2e8f0;">Quetiapine group accumulated ~72 fewer QIDS-point-weeks of depression</td>
+            </tr>
+            <tr>
+              <td style="padding:0.5rem;border-bottom:1px solid #e2e8f0;">Avg. weekly QIDS difference</td>
+              <td style="padding:0.5rem;text-align:center;border-bottom:1px solid #e2e8f0;font-weight:600;">−1.4 pts</td>
+              <td style="padding:0.5rem;border-bottom:1px solid #e2e8f0;">Below typical MCID of 2–3 pts → <em>may not be noticeable</em> per week</td>
+            </tr>
+            <tr>
+              <td style="padding:0.5rem;border-bottom:1px solid #e2e8f0;">Severe anxiety AUC</td>
+              <td style="padding:0.5rem;text-align:center;border-bottom:1px solid #e2e8f0;font-weight:600;">−111.6</td>
+              <td style="padding:0.5rem;border-bottom:1px solid #e2e8f0;">Avg. −2.1 pts/wk — <strong>approaches MCID</strong></td>
+            </tr>
+            <tr>
+              <td style="padding:0.5rem;border-bottom:1px solid #e2e8f0;">Primary trial AUC (Cleare 2025)</td>
+              <td style="padding:0.5rem;text-align:center;border-bottom:1px solid #e2e8f0;font-weight:600;">−68.4</td>
+              <td style="padding:0.5rem;border-bottom:1px solid #e2e8f0;">Consistent with this secondary analysis (−71.6)</td>
+            </tr>
+            <tr>
+              <td style="padding:0.5rem;">95% CI width (overall)</td>
+              <td style="padding:0.5rem;text-align:center;font-weight:600;">123.7</td>
+              <td style="padding:0.5rem;">Wide CI → imprecise estimate; true effect could be small or large</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="discussion-prompt">
+      <h3>Discuss: When Does Statistical Significance Matter Without Clinical Significance?</h3>
+      <p>An average weekly difference of 1.4 QIDS points is below the MCID. But in the <strong>severe anxiety subgroup</strong>, it's ~2.1 pts/week. Should treatment decisions be guided by <em>average</em> effects, or should we focus on <em>subgroup-specific</em> signals — even when those subgroup analyses are underpowered?</p>
+      <div class="timer-widget">
+        <span class="timer-display" id="timerNNT">2:00</span>
+        <button class="timer-btn timer-start" onclick="startTimer('timerNNT', 120)">Start</button>
+        <button class="timer-btn timer-reset" onclick="resetTimer('timerNNT', 120)">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 13: INTERPRETING THE DATA ============ -->
+<div class="slide" data-slide="12">
   <div class="card accent">
     <div class="section-label">Critical Appraisal</div>
     <h2>Interpreting the Data</h2>
@@ -1256,8 +1496,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 12: LIMITATIONS & STRENGTHS ============ -->
-<div class="slide" data-slide="11">
+<!-- ============ SLIDE 14: LIMITATIONS & STRENGTHS ============ -->
+<div class="slide" data-slide="13">
   <div class="card">
     <div class="section-label">Critical Appraisal</div>
     <h2>Strengths &amp; Limitations</h2>
@@ -1302,8 +1542,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 13: CLINICAL IMPLICATIONS ============ -->
-<div class="slide" data-slide="12">
+<!-- ============ SLIDE 15: CLINICAL IMPLICATIONS ============ -->
+<div class="slide" data-slide="14">
   <div class="card success">
     <div class="section-label">Practice Application</div>
     <h2>Clinical Implications</h2>
@@ -1335,8 +1575,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 14: WRAP-UP ============ -->
-<div class="slide" data-slide="13">
+<!-- ============ SLIDE 16: WRAP-UP ============ -->
+<div class="slide" data-slide="15">
   <div class="card">
     <div class="section-label">Summary</div>
     <h2>Take-Home Messages</h2>
