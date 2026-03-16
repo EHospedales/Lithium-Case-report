@@ -618,10 +618,11 @@
   <button class="toc-item" onclick="goToSlide(6)">7. Baseline Characteristics</button>
   <button class="toc-item" onclick="goToSlide(7)">8. Results — Think First</button>
   <button class="toc-item" onclick="goToSlide(8)">9. Primary & Secondary Findings</button>
-  <button class="toc-item" onclick="goToSlide(9)">10. Interpreting the Data</button>
-  <button class="toc-item" onclick="goToSlide(10)">11. Limitations & Strengths</button>
-  <button class="toc-item" onclick="goToSlide(11)">12. Clinical Implications</button>
-  <button class="toc-item" onclick="goToSlide(12)">13. Wrap-Up & Take-Homes</button>
+  <button class="toc-item" onclick="goToSlide(9)">10. AUC Visualization</button>
+  <button class="toc-item" onclick="goToSlide(10)">11. Interpreting the Data</button>
+  <button class="toc-item" onclick="goToSlide(11)">12. Limitations & Strengths</button>
+  <button class="toc-item" onclick="goToSlide(12)">13. Clinical Implications</button>
+  <button class="toc-item" onclick="goToSlide(13)">14. Wrap-Up & Take-Homes</button>
 </div>
 
 <div class="kbd-hint">
@@ -1063,8 +1064,154 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 10: INTERPRETING THE DATA ============ -->
+<!-- ============ SLIDE 10: AUC VISUALIZATION ============ -->
 <div class="slide" data-slide="9">
+  <div class="card">
+    <div class="section-label">Results — Visual</div>
+    <h2>AUC of Depression Scores: Quetiapine vs Lithium</h2>
+    <p style="text-align:center;color:#666;margin-bottom:0.3rem;font-size:0.92rem;">Forest plot of AUC difference in QIDS scores over 52 weeks by baseline anxiety severity</p>
+
+    <div style="text-align:center;overflow-x:auto;">
+      <svg viewBox="0 0 900 460" style="max-width:820px;width:100%;height:auto;font-family:'Inter',sans-serif;">
+        <!-- Background -->
+        <rect x="220" y="70" width="600" height="310" fill="#f8fafc" rx="4"/>
+
+        <!-- Grid lines (light) -->
+        <line x1="295" y1="70" x2="295" y2="380" stroke="#e2e8f0" stroke-width="0.8"/>
+        <line x1="370" y1="70" x2="370" y2="380" stroke="#e2e8f0" stroke-width="0.8"/>
+        <line x1="445" y1="70" x2="445" y2="380" stroke="#e2e8f0" stroke-width="0.8"/>
+        <line x1="520" y1="70" x2="520" y2="380" stroke="#e2e8f0" stroke-width="0.8"/>
+        <line x1="670" y1="70" x2="670" y2="380" stroke="#e2e8f0" stroke-width="0.8"/>
+        <line x1="745" y1="70" x2="745" y2="380" stroke="#e2e8f0" stroke-width="0.8"/>
+
+        <!-- Zero reference line (dashed) -->
+        <line x1="595" y1="65" x2="595" y2="385" stroke="#1a202c" stroke-width="1.8" stroke-dasharray="6,4"/>
+        <text x="595" y="58" text-anchor="middle" font-size="11" fill="#1a202c" font-weight="600">0</text>
+
+        <!-- X-axis tick labels -->
+        <text x="295" y="400" text-anchor="middle" font-size="10" fill="#718096">−200</text>
+        <text x="370" y="400" text-anchor="middle" font-size="10" fill="#718096">−150</text>
+        <text x="445" y="400" text-anchor="middle" font-size="10" fill="#718096">−100</text>
+        <text x="520" y="400" text-anchor="middle" font-size="10" fill="#718096">−50</text>
+        <text x="670" y="400" text-anchor="middle" font-size="10" fill="#718096">50</text>
+        <text x="745" y="400" text-anchor="middle" font-size="10" fill="#718096">100</text>
+
+        <!-- X-axis label / direction arrows -->
+        <text x="420" y="430" text-anchor="middle" font-size="11.5" fill="#2b6cb0" font-weight="600">← Favors Quetiapine</text>
+        <text x="730" y="430" text-anchor="middle" font-size="11.5" fill="#c53030" font-weight="600">Favors Lithium →</text>
+        <text x="520" y="450" text-anchor="middle" font-size="10.5" fill="#718096">AUC Difference (QIDS) over 52 Weeks</text>
+
+        <!-- ─── ROW 1: OVERALL ─── -->
+        <!-- Shaded band -->
+        <rect x="220" y="97" width="600" height="46" fill="#ebf8ff" rx="3" opacity="0.6"/>
+        <!-- Label -->
+        <text x="210" y="124" text-anchor="end" font-size="13" fill="#1a202c" font-weight="700">Overall</text>
+        <!-- CI line -->
+        <line x1="394.8" y1="120" x2="580.3" y2="120" stroke="#2b6cb0" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- CI end caps -->
+        <line x1="394.8" y1="112" x2="394.8" y2="128" stroke="#2b6cb0" stroke-width="2.2"/>
+        <line x1="580.3" y1="112" x2="580.3" y2="128" stroke="#2b6cb0" stroke-width="2.2"/>
+        <!-- Diamond point estimate -->
+        <polygon points="487.6,110 497.6,120 487.6,130 477.6,120" fill="#2b6cb0" stroke="#1a365d" stroke-width="1"/>
+        <!-- Value annotation -->
+        <text x="835" y="116" text-anchor="end" font-size="10.5" fill="#2b6cb0" font-weight="700">−71.6</text>
+        <text x="835" y="130" text-anchor="end" font-size="9" fill="#2b6cb0">(−133.5 to −9.8)</text>
+        <!-- Significance star -->
+        <text x="845" y="124" font-size="18" fill="#d69e2e" font-weight="700">★</text>
+        <!-- P-value -->
+        <text x="487.6" y="103" text-anchor="middle" font-size="10" fill="#2b6cb0" font-weight="600">p = 0.023</text>
+
+        <!-- ─── ROW 2: SEVERE ─── -->
+        <text x="210" y="199" text-anchor="end" font-size="12.5" fill="#1a202c" font-weight="600">Severe</text>
+        <text x="210" y="212" text-anchor="end" font-size="9.5" fill="#718096">(GAD-7 ≥ 16)</text>
+        <!-- CI line -->
+        <line x1="268.6" y1="195" x2="586.7" y2="195" stroke="#2f855a" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- CI end caps -->
+        <line x1="268.6" y1="187" x2="268.6" y2="203" stroke="#2f855a" stroke-width="2.2"/>
+        <line x1="586.7" y1="187" x2="586.7" y2="203" stroke="#2f855a" stroke-width="2.2"/>
+        <!-- Diamond -->
+        <polygon points="427.6,185 437.6,195 427.6,205 417.6,195" fill="#2f855a" stroke="#22543d" stroke-width="1"/>
+        <!-- Value annotation -->
+        <text x="835" y="191" text-anchor="end" font-size="10.5" fill="#2f855a" font-weight="700">−111.6</text>
+        <text x="835" y="205" text-anchor="end" font-size="9" fill="#2f855a">(−217.6 to −5.6)</text>
+        <!-- Significance star -->
+        <text x="845" y="199" font-size="18" fill="#d69e2e" font-weight="700">★</text>
+        <!-- P-value -->
+        <text x="427.6" y="178" text-anchor="middle" font-size="10" fill="#2f855a" font-weight="600">p = 0.039</text>
+
+        <!-- ─── ROW 3: MODERATE ─── -->
+        <text x="210" y="274" text-anchor="end" font-size="12.5" fill="#1a202c" font-weight="600">Moderate</text>
+        <text x="210" y="287" text-anchor="end" font-size="9.5" fill="#718096">(GAD-7 11–15)</text>
+        <!-- CI line -->
+        <line x1="303.7" y1="270" x2="647.2" y2="270" stroke="#a0aec0" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- CI end caps -->
+        <line x1="303.7" y1="262" x2="303.7" y2="278" stroke="#a0aec0" stroke-width="2.2"/>
+        <line x1="647.2" y1="262" x2="647.2" y2="278" stroke="#a0aec0" stroke-width="2.2"/>
+        <!-- Diamond -->
+        <polygon points="475.5,260 485.5,270 475.5,280 465.5,270" fill="#a0aec0" stroke="#718096" stroke-width="1"/>
+        <!-- Value annotation -->
+        <text x="835" y="266" text-anchor="end" font-size="10.5" fill="#718096" font-weight="600">−79.7</text>
+        <text x="835" y="280" text-anchor="end" font-size="9" fill="#718096">(−194.2 to 34.8)</text>
+        <!-- P-value -->
+        <text x="475.5" y="253" text-anchor="middle" font-size="10" fill="#718096">p = 0.17</text>
+
+        <!-- ─── ROW 4: MILD ─── -->
+        <text x="210" y="349" text-anchor="end" font-size="12.5" fill="#1a202c" font-weight="600">Mild/Absent</text>
+        <text x="210" y="362" text-anchor="end" font-size="9.5" fill="#718096">(GAD-7 ≤ 10)</text>
+        <!-- CI line -->
+        <line x1="395.8" y1="345" x2="705.1" y2="345" stroke="#a0aec0" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- CI end caps -->
+        <line x1="395.8" y1="337" x2="395.8" y2="353" stroke="#a0aec0" stroke-width="2.2"/>
+        <line x1="705.1" y1="337" x2="705.1" y2="353" stroke="#a0aec0" stroke-width="2.2"/>
+        <!-- Diamond -->
+        <polygon points="639.6,335 649.6,345 639.6,355 629.6,345" fill="#fc8181" stroke="#c53030" stroke-width="1"/>
+        <!-- Value annotation -->
+        <text x="835" y="341" text-anchor="end" font-size="10.5" fill="#718096" font-weight="600">+29.7</text>
+        <text x="835" y="355" text-anchor="end" font-size="9" fill="#718096">(−132.8 to 73.4)</text>
+        <!-- P-value -->
+        <text x="639.6" y="328" text-anchor="middle" font-size="10" fill="#718096">p = 0.57</text>
+
+        <!-- Legend -->
+        <text x="230" y="88" font-size="10" fill="#d69e2e" font-weight="700">★</text>
+        <text x="242" y="88" font-size="10" fill="#4a5568">= p &lt; 0.05 (statistically significant)</text>
+        <rect x="420" y="79" width="12" height="12" fill="#2b6cb0" rx="2"/>
+        <text x="436" y="89" font-size="10" fill="#4a5568">Significant</text>
+        <rect x="500" y="79" width="12" height="12" fill="#a0aec0" rx="2"/>
+        <text x="516" y="89" font-size="10" fill="#4a5568">Non-significant</text>
+      </svg>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: Key Interpretation</div>
+      <div class="reveal-content">
+        <ul>
+          <li><strong>Negative AUC</strong> = lower total depression burden over 52 weeks with <strong>quetiapine</strong> vs lithium.</li>
+          <li><strong>Overall</strong> and <strong>severe anxiety</strong> subgroups reach significance — quetiapine linked to meaningfully less depression over time.</li>
+          <li>The <strong>moderate</strong> group trends toward quetiapine superiority but the CI crosses zero.</li>
+          <li>In <strong>mild/absent anxiety</strong>, the AUC is <em>positive</em> (+29.7), meaning <strong>lithium trended numerically better</strong> — though far from significant.</li>
+          <li><strong>Clinical takeaway:</strong> The benefit of quetiapine over lithium for depression appears driven by patients with high baseline anxiety.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reveal-box" onclick="toggleReveal(this)">
+      <div class="reveal-prompt">Click to reveal: Supplementary Model Details</div>
+      <div class="reveal-content">
+        <p><strong>Depression model (QIDS):</strong> Three-way interaction Treatment × Baseline Anxiety × Time.</p>
+        <ul>
+          <li>Lithium × Time: coeff 0.039 (p = 0.149) — lithium scores decrease more slowly than quetiapine over time</li>
+          <li>Lithium × Severe anxiety: coeff 1.68 (p = 0.176) — participants with severe anxiety on lithium start higher</li>
+          <li>Lithium × Severe × Time: coeff −0.004 (p = 0.918) — no differential time slope for this cell</li>
+          <li>AUC was computed via linear combination (lincom) of model parameters, integrating the treatment difference across the 52-week study period.</li>
+        </ul>
+        <p><em>Source: Supplementary Table (Analysis 2), MOESM1</em></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 11: INTERPRETING THE DATA ============ -->
+<div class="slide" data-slide="10">
   <div class="card accent">
     <div class="section-label">Critical Appraisal</div>
     <h2>Interpreting the Data</h2>
@@ -1109,8 +1256,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 11: LIMITATIONS & STRENGTHS ============ -->
-<div class="slide" data-slide="10">
+<!-- ============ SLIDE 12: LIMITATIONS & STRENGTHS ============ -->
+<div class="slide" data-slide="11">
   <div class="card">
     <div class="section-label">Critical Appraisal</div>
     <h2>Strengths &amp; Limitations</h2>
@@ -1155,8 +1302,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 12: CLINICAL IMPLICATIONS ============ -->
-<div class="slide" data-slide="11">
+<!-- ============ SLIDE 13: CLINICAL IMPLICATIONS ============ -->
+<div class="slide" data-slide="12">
   <div class="card success">
     <div class="section-label">Practice Application</div>
     <h2>Clinical Implications</h2>
@@ -1188,8 +1335,8 @@
   </div>
 </div>
 
-<!-- ============ SLIDE 13: WRAP-UP ============ -->
-<div class="slide" data-slide="12">
+<!-- ============ SLIDE 14: WRAP-UP ============ -->
+<div class="slide" data-slide="13">
   <div class="card">
     <div class="section-label">Summary</div>
     <h2>Take-Home Messages</h2>
